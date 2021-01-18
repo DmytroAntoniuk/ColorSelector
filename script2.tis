@@ -1,0 +1,84 @@
+
+function self.ready() {
+	stdout.$n(fileIsReady1);
+    const preview = $(#preview);
+}
+
+class AddColorBlock : Element
+{
+	function attached(){
+		stdout.$n(attachedAddColorBlock);
+		this.onClick = handleClick;
+	}
+
+	function detached(){
+		stdout.$n(detachedAddColorBlock);
+	}
+
+	function handleClick(){
+		const block = $(#blockAppearancePlace).$append(<div class="colorBlock"><span class="closeBtn">&times;</span></div>);
+		block.style.set { background-color: color(rand(256),rand(256),rand(256)) };
+	}
+}
+
+class CloseButton : Element
+{
+	function attached(){
+		stdout.$n(attachedClose);
+		this.onClick = handleClick;
+	}
+
+	function detached(){
+		stdout.$n(detachedClose);
+	}
+
+	function handleClick(){
+		const colorBlock = this.parent;
+		colorBlock.remove();
+	}
+}
+
+class ColorBlock : Element
+{
+	function attached(){
+		stdout.$n(attachedColorBtn);
+		this.onClick = handleClick;
+	}
+
+	function detached(){
+		stdout.$n(detachedColorBtn);
+	}
+
+	var prevBlock;
+
+	function handleClick(){
+
+		const colorBlocks = $$(.colorBlock);
+		for ( var block in colorBlocks){
+			block.@#active = undefined;
+		}
+		this.@#active = true;
+		
+		
+		const previewBlock = $(#preview);
+		previewBlock.style#background-color = this.style#background-color;
+	}
+}
+
+class NoColorBlock : Element
+{
+	function attached(){
+		stdout.$n(attachedColorBtn);
+		this.onClick = handleClick;
+	}
+
+	function detached(){
+		stdout.$n(detachedColorBtn);
+	}
+
+	function handleClick(){
+		stdout.$n(clickColorBtn);
+		const previewBlock = $(#preview);
+		previewBlock.style.set { background-color : color("white")};
+	}
+}

@@ -1,0 +1,80 @@
+body {
+     background: #FFF;
+     font-family: Arial, sans-serif;
+     font-size: 14dip;
+     text-align: center;
+
+
+}
+
+#colorsContainer {
+  float: left;
+  width: 100%;
+  height: auto;
+  
+}
+
+.colorBlock {
+     color: red;
+     float: left;
+     width: 15%;
+     height: width(56.25%);
+     border-radius: 25dip;
+     margin: 25dip 50dip 15dip 120dip;
+     border: none;
+     prototype: ColorBlock url(script2.tis);
+}
+
+#preview {
+
+     color: red;
+     background: black;
+     float: left;
+     width:  100%;
+     height: width(56.25%);
+     border-radius: 25dip; 
+}
+
+.closeBtn {
+  margin: 20dip 20dip 20dip 20dip;
+  color: red;
+  font-weight: bold;
+  float: right;
+  font-size: 40dip;
+  line-height: 20dip;
+  cursor: pointer;
+  prototype: CloseButton url(script2.tis);
+}
+
+
+
+#noColorBlock {
+     background: black;
+     color: red;
+     float: left;
+     width: 15%;
+     height: width(56.25%);
+     margin: 25dip 50dip 15dip 120dip;
+     border-radius: 25dip;
+     prototype: NoColorBlock url(script2.tis);
+}
+
+#addColorBlock {
+     background: black;
+     color: red;
+     float: left;
+     width: 15%;
+     height: width(56.25%);
+     margin: 25dip 50dip 15dip 120dip;
+     border-radius: 25dip;
+     prototype: AddColorBlock url(script2.tis);
+}
+
+div[active = true]{
+  border: 5dip solid black;
+}
+
+div[active = undefined]
+{
+  border: none;
+}
