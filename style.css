@@ -1,80 +1,91 @@
 body {
      background: #FFF;
      font-family: Arial, sans-serif;
-     font-size: 14dip;
+     font-size: 8dip;
      text-align: center;
-
-
+     padding: 3%;
+     prototype: Body url(script2.tis);
 }
 
 #colorsContainer {
-  float: left;
   width: 100%;
-  height: auto;
-  
+  height: auto;/*
+  flow: grid( 1 2 3 4,
+               5 6 7 8,
+               9 10 11 12);*/
+  flow: horizontal-wrap;
 }
 
 .colorBlock {
      color: red;
-     float: left;
-     width: 15%;
+     width: 153dip;
+     /*max-height: 80dip;
+     max-width: max-height(142.2%);*/
      height: width(56.25%);
-     border-radius: 25dip;
-     margin: 25dip 50dip 15dip 120dip;
-     border: none;
+     border-radius: 15% 15% 15% 15%;
+     margin: 1%;
      prototype: ColorBlock url(script2.tis);
 }
 
 #preview {
-
      color: red;
      background: black;
-     float: left;
      width:  100%;
      height: width(56.25%);
      border-radius: 25dip; 
+     max-width: 500dip;
+     margin: auto;
 }
 
 .closeBtn {
-  margin: 20dip 20dip 20dip 20dip;
+  margin: 3%;
+
   color: red;
   font-weight: bold;
   float: right;
-  font-size: 40dip;
-  line-height: 20dip;
+  font-size: 25dip;
+  line-height: 10dip;
   cursor: pointer;
   prototype: CloseButton url(script2.tis);
 }
 
-
-
 #noColorBlock {
      background: black;
-     color: red;
-     float: left;
-     width: 15%;
+     color: white;
+     width: 153dip;
+     /*max-height: 80dip;*/
      height: width(56.25%);
-     margin: 25dip 50dip 15dip 120dip;
-     border-radius: 25dip;
+     /*max-width: max-height(142.2%);*/
+     border-radius: 15% 15% 15% 15%;
+     margin: 1%;
      prototype: NoColorBlock url(script2.tis);
 }
 
 #addColorBlock {
      background: black;
-     color: red;
-     float: left;
-     width: 15%;
+     color: white;
+     width: 153dip;
+     /*max-height: 80dip;*/
      height: width(56.25%);
-     margin: 25dip 50dip 15dip 120dip;
-     border-radius: 25dip;
+     /*max-width: max-height(142.2%);*/
+     border-radius: 15% 15% 15% 15%;
+     margin: 1%;
      prototype: AddColorBlock url(script2.tis);
 }
 
 div[active = true]{
-  border: 5dip solid black;
+  /*border: 5dip solid black;*/
+  box-shadow: 2px 2px 0 #000 inset, -2px 2px 0 #000 inset, -2px -2px 0 #000 inset, 2px -2px 0 #000 inset;
 }
 
-div[active = undefined]
-{
+div[active = undefined]{
   border: none;
+}
+
+#colorsContainer[sizeValue = "less80"] {
+    flow: horizontal-wrap;
+}
+
+#colorsContainer[sizeValue = "more80"] {
+    flow: horizontal-wrap;
 }

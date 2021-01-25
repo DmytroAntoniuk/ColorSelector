@@ -1,7 +1,21 @@
 
-function self.ready() {
-	stdout.$n(fileIsReady1);
-    const preview = $(#preview);
+class Body : Element
+{
+	function attached(){
+		
+		this.insert("<div #preview></div>",0);
+		this.insert("<div #colorsContainer></div>",1);
+		var container = $(#colorsContainer);
+		container.insert("<div #noColorBlock><h2>No color</h2></div>",0);
+		container.insert("<div #addColorBlock><h2>Add color</h2></div>",1);
+		var addColBlock = $(#addColorBlock);
+		stdout.$n(!!!!!!!!!!!!QQQQQ!!!!!!);
+		stdout.println("%f", addColBlock.@#height);
+		if (addColBlock.@#height <80)
+		{
+			container.@#sizeValue = "less80";
+		} else {container.@#sizeValue = "more80";}
+	}	
 }
 
 class AddColorBlock : Element
@@ -14,10 +28,12 @@ class AddColorBlock : Element
 	function detached(){
 		stdout.$n(detachedAddColorBlock);
 	}
-
 	function handleClick(){
-		const block = $(#blockAppearancePlace).$append(<div class="colorBlock"><span class="closeBtn">&times;</span></div>);
-		block.style.set { background-color: color(rand(256),rand(256),rand(256)) };
+		var container = $(#colorsContainer);
+	    var blockColors = [];
+	    container.insert("<div .colorBlock><span .closeBtn>&times;</span></div>",container.length - 1);
+	    blockColors.push(color(rand(256),rand(256),rand(256)));
+	    container[container.length - 2].style.set { background-color:  blockColors[blockColors.length - 1]};
 	}
 }
 
@@ -48,8 +64,6 @@ class ColorBlock : Element
 	function detached(){
 		stdout.$n(detachedColorBtn);
 	}
-
-	var prevBlock;
 
 	function handleClick(){
 
