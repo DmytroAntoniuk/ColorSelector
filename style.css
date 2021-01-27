@@ -1,24 +1,23 @@
 body {
+     color: black;
      background: #FFF;
      font-family: Arial, sans-serif;
      font-size: 8dip;
-     text-align: center;
+     /*text-align: center;*/
      padding: 3%;
      prototype: Body url(script2.tis);
 }
 
 #colorsContainer {
   width: 100%;
-  height: auto;/*
-  flow: grid( 1 2 3 4,
-               5 6 7 8,
-               9 10 11 12);*/
+  height: auto;
   flow: horizontal-wrap;
 }
 
 .colorBlock {
      color: red;
-     width: 153dip;
+     width: *;
+     max-width: 153dip;
      /*max-height: 80dip;
      max-width: max-height(142.2%);*/
      height: width(56.25%);
@@ -50,9 +49,11 @@ body {
 }
 
 #noColorBlock {
+     text-align: center;
      background: black;
      color: white;
-     width: 153dip;
+     width: *;
+     max-width: 153dip;
      /*max-height: 80dip;*/
      height: width(56.25%);
      /*max-width: max-height(142.2%);*/
@@ -62,11 +63,13 @@ body {
 }
 
 #addColorBlock {
+     text-align: center;
      background: black;
      color: white;
-     width: 153dip;
+     width: *;
+     max-width: 153dip;
      /*max-height: 80dip;*/
-     height: width(56.25%);
+     height: width(56.25%);                                                                                 
      /*max-width: max-height(142.2%);*/
      border-radius: 15% 15% 15% 15%;
      margin: 1%;
@@ -82,10 +85,17 @@ div[active = undefined]{
   border: none;
 }
 
-#colorsContainer[sizeValue = "less80"] {
-    flow: horizontal-wrap;
+#colorsContainer[layout_type = "grid"] {
+    flow: grid( 1 2 3 4,
+               5 6 7 8,
+               9 10 11 12);
 }
 
-#colorsContainer[sizeValue = "more80"] {
+#colorsContainer[layout_type = "line"] {
     flow: horizontal-wrap;
 }
+/*
+#popupMenu{
+  font-size: 14dip;*/
+  /*prototype: PopupMenu url(script2.tis);*/
+/*}*/
