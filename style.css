@@ -16,8 +16,8 @@ body {
 
 .colorBlock {
      color: red;
-     width: *;
-     max-width: 153dip;
+     width: 153dip;
+     /*max-width: 153 dip;*/
      /*max-height: 80dip;
      max-width: max-height(142.2%);*/
      height: width(56.25%);
@@ -52,8 +52,8 @@ body {
      text-align: center;
      background: black;
      color: white;
-     width: *;
-     max-width: 153dip;
+     width: 153dip;
+     /*max-width: 153dip;*/
      /*max-height: 80dip;*/
      height: width(56.25%);
      /*max-width: max-height(142.2%);*/
@@ -66,8 +66,8 @@ body {
      text-align: center;
      background: black;
      color: white;
-     width: *;
-     max-width: 153dip;
+     width: 153dip;
+     /*max-width: 153dip;*/
      /*max-height: 80dip;*/
      height: width(56.25%);                                                                                 
      /*max-width: max-height(142.2%);*/
@@ -94,8 +94,46 @@ div[active = undefined]{
 #colorsContainer[layout_type = "line"] {
     flow: horizontal-wrap;
 }
-/*
-#popupMenu{
-  font-size: 14dip;*/
-  /*prototype: PopupMenu url(script2.tis);*/
-/*}*/
+
+/*templates {
+  display: none;
+}*/
+
+          widget[type=hsv] {
+            var(hue): #ff0000;
+            prototype: HSVSelector;
+            display:block;
+            size:max-content;
+          }
+
+          widget[type=hsv] > input.hue
+          {
+            display:block; 
+            border:none;
+            height: 3dip;
+            width:182dip;
+            margin:0 *;
+            background: linear-gradient(to right, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+          }
+
+          widget[type=hsv] > div.layers { 
+            size:180dip;
+            flow:stack;
+            margin:*;
+          }
+
+          widget[type=hsv] > div.layers > div.value {
+            size:*;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.0) 1%, rgba(0,0,0,1.0) 100%); 
+          }
+          widget[type=hsv] > div.layers > div.saturation {
+            size:*;
+            background: linear-gradient(to right, color(hue) 0%, #ffffff 100%); 
+          }
+
+          widget[type=hsv] > div.layers > div.pointer {
+            border:2dip solid #fff;
+            size:7dip;
+            transform: translate(-50%,-50%);
+            border-radius:50%;
+          }
