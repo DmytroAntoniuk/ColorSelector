@@ -7,6 +7,7 @@
 
 
 <templates>
+	<div #popupMenu>
 	 <widget|hsv #color>
         <div.layers>
           <div.saturation/>
@@ -16,7 +17,11 @@
         <input|hslider.hue min=0 max=360 />
       </widget>
 
-      <pre#out></pre>
+      <!-- <pre#out></pre> -->
+      <div #addColorBtn>
+      	Add
+      </div>
+	</div>
 
       <div .colorBlock #templateBlock>
       	<span .closeBtn>&times;</span>

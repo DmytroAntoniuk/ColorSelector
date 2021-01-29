@@ -1,0 +1,63 @@
+class HSVSelector: Element 
+          {
+            this var hue = 0; // 0..360
+            this var val = 0.0; // 0..1.0
+            this var sat = 0.0; // 0..1.0
+
+            function attached() {
+              var me = this;
+              $(div.value) << event mousedown(evt) {
+                 var (w,h) = this.box(#dimension);
+                 me.val = 1.0 - (evt.y + 0.5) / h.toFloat(); 
+                 me.sat = 1.0 - (evt.x + 0.5) / w.toFloat(); 
+                 me.postEvent("change");
+                 me.$(div.pointer).style.set {
+                   margin-left: evt.x,
+                   margin-top: evt.y,
+                 };
+              };
+            }
+
+            event change $(input.hue) (evt, elHue) {
+              this.hue = elHue.value;
+              var color = Color.hsv(this.hue,1,1);
+              this.style.variable("hue", color);
+              this.postEvent("change");
+            }
+
+            property value(v) {
+              get return Color.hsv( this.hue, this.sat, this.val );
+              set {
+                // left as an exercise for the reader 
+              }
+            }
+          }
+
+var blockColorsList = [];
+
+class AddColorBtn : Element
+  {
+    function attached(){
+      this.onClick = handleClick;
+    }
+
+    function handleClick(){
+      var container = $(#colorsContainer);
+      container.insert("<div .colorBlock><span .closeBtn>&times;</span></div>",container.length - 1);
+      blockColorsList.push($(widget#color).value.toString());
+      for (var blockColor in blockColorsList)
+      {
+        stdout.$n(Color: {blockColor});
+      }
+      container[container.length - 2].style.set { background-color:  color($(widget#color).value.toString())};            
+      const colorBlocks = $$(.colorBlock);
+      for ( var block in colorBlocks){
+        block.@#active = undefined;
+      }
+      container[container.length - 2].@#active = true;
+      const preview = $(#preview);
+      preview.style#background-color = color($(widget#color).value.toString());
+      $(#popupMenu).closePopup();
+    }
+  }
+

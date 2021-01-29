@@ -91,17 +91,26 @@ div[active = undefined]{
                9 10 11 12);
 }
 
+#colorsContainer[layout_type = "grid"] > div{
+  width: *;
+}
+
 #colorsContainer[layout_type = "line"] {
     flow: horizontal-wrap;
 }
 
-/*templates {
+#colorsContainer[layout_type = "line"] > div{
+  width: 153dip;
+}
+
+
+templates {
   display: none;
-}*/
+}
 
           widget[type=hsv] {
             var(hue): #ff0000;
-            prototype: HSVSelector;
+            prototype: HSVSelector url(colorSelector.tis);
             display:block;
             size:max-content;
           }
@@ -111,15 +120,15 @@ div[active = undefined]{
             display:block; 
             border:none;
             height: 3dip;
-            width:182dip;
-            margin:0 *;
+            width:140dip;
+            /*margin:0 *;*/
             background: linear-gradient(to right, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
           }
 
           widget[type=hsv] > div.layers { 
-            size:180dip;
+            size:155dip;
             flow:stack;
-            margin:*;
+            /*margin:*;*/
           }
 
           widget[type=hsv] > div.layers > div.value {
@@ -132,8 +141,22 @@ div[active = undefined]{
           }
 
           widget[type=hsv] > div.layers > div.pointer {
-            border:2dip solid #fff;
+            border: 2dip solid #fff;
             size:7dip;
             transform: translate(-50%,-50%);
             border-radius:50%;
           }
+
+#popupMenu{
+  /*border: 10dip solid red;*/
+}
+
+#addColorBtn{
+  prototype: AddColorBtn url(colorSelector.tis);
+  display: inline-block;
+  padding: 5%;
+  margin: auto;
+  margin: auto;
+  font-size: 14dip;
+  border: 1dip solid red;
+}

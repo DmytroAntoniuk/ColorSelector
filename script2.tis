@@ -1,21 +1,23 @@
+include "colorSelector.tis";
+
 
 class Body : Element
 {
-	function attached(){
-		
+
+	function attached(){	
 		this.insert("<div #preview></div>",0);
 		this.insert("<div #colorsContainer></div>",1);
 		var container = $(#colorsContainer);
 		container.insert("<div #noColorBlock><h2>No color</h2></div>",0);
-		container.insert("<div #addColorBlock><h2>Add color</h2></div>",1);
-		stdout.$n(______________________LOG__________________0000____{$(#colorsContainer).box(#width)});
+		container.insert("<div #addColorBlock><h2>Select color</h2></div>",1);
+		// stdout.$n(______________________LOG__________________0000____{$(#colorsContainer).box(#width)});
 		view.on("size", function() {
 			const addColBlock = $(#addColorBlock);
-			 const isSmallEnough = $(#colorsContainer).box(#width) < (addColBlock.box(#width)*4+$(#colorsContainer).box(#width)*0.05);
-			stdout.$n(______________________LOG______________enoughWidth________{(addColBlock.box(#width)*4+$(#colorsContainer).box(#width)*0.05)});
-			stdout.$n(______________________LOG______________width________{$(#colorsContainer).box(#width)});
+			 const isSmallEnough = $(#colorsContainer).box(#width) < 650;
+			// stdout.$n(______________________LOG______________enoughWidth________{(addColBlock.box(#width)*4+$(#colorsContainer).box(#width)*0.05)});
+			// stdout.$n(______________________LOG______________width________{$(#colorsContainer).box(#width)});
 			$(#colorsContainer).@#layout_type  = isSmallEnough ? "grid" : "line";
-			stdout.$n(______________________LOG______________________{$(#colorsContainer).@#layout_type});
+			// stdout.$n(______________________LOG______________________{$(#colorsContainer).@#layout_type});
 		});
 	}	
 }
@@ -23,7 +25,6 @@ class Body : Element
 
 class AddColorBlock : Element
 {
-     var blockColors = [];
 	function attached(){
 		stdout.$n(attachedAddColorBlock);
 		this.onClick = handleClick;
@@ -32,19 +33,9 @@ class AddColorBlock : Element
 	function detached(){
 		stdout.$n(detachedAddColorBlock);
 	}
+
 	function handleClick(){
-		var container = $(#colorsContainer);
-	    container.insert("<div .colorBlock><span .closeBtn>&times;</span></div>",container.length - 1);
-	    blockColors.push(color(rand(256),rand(256),rand(256)));
-	    container[container.length - 2].style.set { background-color:  blockColors[blockColors.length - 1]};
-	    const addColBlock = $(#addColorBlock);
-	    stdout.$n(______________________LOG___________5555___________{$(#colorsContainer).box(#width)});
-	    var enoughWidth =  ($(#addColorBlock).box(#width)*4) + $(#colorsContainer).box(#width)*0.05;
-			 const isSmallEnough = $(#colorsContainer).box(#width) < (addColBlock.box(#width)*4+$(#colorsContainer).box(#width)*0.05);
-			stdout.$n(______________________LOG_______________1111_______{enoughWidth});
-			stdout.$n(______________________LOG_______________2222_______{$(#colorsContainer).box(#width)});
-			 $(#colorsContainer).@#layout_type  = isSmallEnough ? "grid" : "line";
-		// $(#addColorBlock).popup($(#color), 2);
+		 $(#addColorBlock).popup($(#popupMenu), 2);
 	}
 }
 
@@ -83,8 +74,6 @@ class ColorBlock : Element
 			block.@#active = undefined;
 		}
 		this.@#active = true;
-		
-		
 		const previewBlock = $(#preview);
 		previewBlock.style#background-color = this.style#background-color;
 	}
@@ -107,42 +96,3 @@ class NoColorBlock : Element
 		previewBlock.style.set { background-color : color("white")};
 	}
 }
-
-          class HSVSelector: Element 
-          {
-            this var hue = 0; // 0..360
-            this var val = 0.0; // 0..1.0
-            this var sat = 0.0; // 0..1.0
-
-            function attached() {
-              var me = this;
-              $(div.value) << event mousedown(evt) {
-                 var (w,h) = this.box(#dimension);
-                 me.val = 1.0 - (evt.y + 0.5) / h.toFloat(); 
-                 me.sat = 1.0 - (evt.x + 0.5) / w.toFloat(); 
-                 me.postEvent("change");
-                 me.$(div.pointer).style.set {
-                   margin-left: evt.x,
-                   margin-top: evt.y,
-                 };
-              };
-            }
-
-            event change $(input.hue) (evt, elHue) {
-              this.hue = elHue.value;
-              var color = Color.hsv(this.hue,1,1);
-              this.style.variable("hue", color);
-              this.postEvent("change");
-            }
-
-            property value(v) {
-              get return Color.hsv( this.hue, this.sat, this.val );
-              set {
-                // left as an exercise for the reader 
-              }
-            }
-          }
-
-          event change $(widget#color) {
-            $(pre#out).text = this.value.toString();
-          }
