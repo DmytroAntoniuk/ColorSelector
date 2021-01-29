@@ -43,12 +43,9 @@ class AddColorBtn : Element
 
     function handleClick(){
       var container = $(#colorsContainer);
-      container.insert("<div .colorBlock><span .closeBtn>&times;</span></div>",container.length - 1);
+      container.insert("<div .colorBlock><span .closeBtn>&times;</span><input .colorValueArea value='qwerty' type='text' size='13'></div>",container.length - 1);
       blockColorsList.push($(widget#color).value.toString());
-      for (var blockColor in blockColorsList)
-      {
-        stdout.$n(Color: {blockColor});
-      }
+
       container[container.length - 2].style.set { background-color:  color($(widget#color).value.toString())};            
       const colorBlocks = $$(.colorBlock);
       for ( var block in colorBlocks){

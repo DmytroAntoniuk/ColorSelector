@@ -15,6 +15,7 @@ body {
 }
 
 .colorBlock {
+     padding: auto;
      color: red;
      width: 153dip;
      /*max-width: 153 dip;*/
@@ -156,7 +157,15 @@ templates {
   display: inline-block;
   padding: 5%;
   margin: auto;
-  margin: auto;
   font-size: 14dip;
   border: 1dip solid red;
+}
+
+.colorValueArea{
+/*  border: none;
+  background-color: none;*/
+  font-size: 14dip;
+  /*color: white;*/
+  /*text-align: center;*/
+  /*margin: auto;*/
 }
