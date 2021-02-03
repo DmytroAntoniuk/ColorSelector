@@ -57,7 +57,8 @@ class AddColorBtn : Element
 
     function handleClick(){
       blockColorsList.push($(widget#color).value.toString());
-      var currentBlock = "<div .colorBlock><span .closeBtn>&times;</span><div .colorValueArea>qwertyt</div></div>";
+      // var currentBlock = "<div .colorBlock><span .closeBtn>&times;</span><div .colorValueArea>"+blockColorsList[blockColorsList.length-1]+"</div></div>";
+      var currentBlock = "<div .colorBlock><span .closeBtn>&times;</span><input .colorValueArea value="+blockColorsList[blockColorsList.length-1].toString()+"></div>";
       var container = $(#colorsContainer);
       container.insert(currentBlock ,container.length - 1);
       // stdout.$n(____________________{currentBlock}_________);
