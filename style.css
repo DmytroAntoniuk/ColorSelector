@@ -162,10 +162,11 @@ templates {
 }
 
 .colorValueArea{
-/*  border: none;
-  background-color: none;*/
+  /*border: none;*/
+  /*background-color: none;*/
   font-size: 14dip;
-  /*color: white;*/
-  /*text-align: center;*/
+  width: 100%;
+  color: white;
+  text-align: center;
   /*margin: auto;*/
 }

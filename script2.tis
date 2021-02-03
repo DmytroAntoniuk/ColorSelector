@@ -52,6 +52,14 @@ class CloseButton : Element
 
 	function handleClick(){
 		const colorBlock = this.parent;
+		colorBlock.@#toDelete = true; 
+		var container = $(#colorsContainer);
+		var i = 0;
+		for (i = 0; i < container.length; i++) {
+			if (container[i].@#toDelete == true) break;
+		}
+		blockColorsList.remove(i-1);
+		// stdout.$n(______________________{i}__{blockColorsList.length}____________________);
 		colorBlock.remove();
 	}
 }
@@ -96,3 +104,4 @@ class NoColorBlock : Element
 		previewBlock.style.set { background-color : color("white")};
 	}
 }
+

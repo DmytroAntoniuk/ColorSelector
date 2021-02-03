@@ -1,3 +1,10 @@
+// function self.ready() {
+//     stdout.$n(____________________START_________);
+//     var obj = new DataStorage();
+//     var container = $(#colorsContainer);
+//     obj.addData($(widget#color).value.toString(), container[container.length - 1]);
+// };
+
 class HSVSelector: Element 
           {
             this var hue = 0; // 0..360
@@ -28,33 +35,79 @@ class HSVSelector: Element
             property value(v) {
               get return Color.hsv( this.hue, this.sat, this.val );
               set {
-                // left as an exercise for the reader 
               }
             }
           }
 
 var blockColorsList = [];
+// var blocksCounter = 0;
+
+  // class BlockMap
+  // {
+  //   var blockColorsList = [];
+  // }
 
 class AddColorBtn : Element
   {
+    // var blockMap = new BlockMap();
+
     function attached(){
       this.onClick = handleClick;
     }
 
     function handleClick(){
-      var container = $(#colorsContainer);
-      container.insert("<div .colorBlock><span .closeBtn>&times;</span><input .colorValueArea value='qwerty' type='text' size='13'></div>",container.length - 1);
       blockColorsList.push($(widget#color).value.toString());
-
-      container[container.length - 2].style.set { background-color:  color($(widget#color).value.toString())};            
+      var currentBlock = "<div .colorBlock><span .closeBtn>&times;</span><div .colorValueArea>qwertyt</div></div>";
+      var container = $(#colorsContainer);
+      container.insert(currentBlock ,container.length - 1);
+      // stdout.$n(____________________{currentBlock}_________);
+      container[container.length - 2].style.set { background-color:  color(blockColorsList[blockColorsList.length-1])};            
       const colorBlocks = $$(.colorBlock);
       for ( var block in colorBlocks){
         block.@#active = undefined;
       }
       container[container.length - 2].@#active = true;
       const preview = $(#preview);
-      preview.style#background-color = color($(widget#color).value.toString());
+      preview.style#background-color = color(blockColorsList[blockColorsList.length-1]);
       $(#popupMenu).closePopup();
     }
   }
+
+// class DataStorage
+// {
+//    var storage;
+//    var root;
+
+//     function this() {
+//          storage = Storage.open("database.db");
+//          root =  initDb();
+//          var container = $(#colorsContainer);
+//          for (var i = 0; i < container.length; i++) {
+//             storage.root.block[i] = container[i];
+//           }
+
+//          stdout.$n(____________________ATTACHED_________{storage}____{root});
+//     }
+
+//     function initDb() {
+//       stdout.$n(____________________INIT_________);
+//       storage.root = { 
+//         block: storage.createIndex(#object, true);
+//       };
+//       return storage.root;
+//     }
+
+//   function addData(blockObj) {
+//       stdout.$n(____________________ADD_DATA___________________________);
+//       var container = $(#colorsContainer);
+//       storage.root.block[container.length-1] = container[container.length-1];
+//   }
+
+//   function showData() {
+//     stdout.$n(____________________SHOW_DATA_________);
+//       for(obj in storage.root.block);
+//       stdout.$n(child.color, child.block);
+//   } 
+// }
+
 
