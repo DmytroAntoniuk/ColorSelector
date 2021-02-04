@@ -39,13 +39,9 @@ class HSVSelector: Element
             }
           }
 
-var blockColorsList = [];
+// var blockColorsList = [];
 // var blocksCounter = 0;
 
-  // class BlockMap
-  // {
-  //   var blockColorsList = [];
-  // }
 
 class AddColorBtn : Element
   {
@@ -56,24 +52,63 @@ class AddColorBtn : Element
     }
 
     function handleClick(){
-      blockColorsList.push($(widget#color).value.toString());
-      // var currentBlock = "<div .colorBlock><span .closeBtn>&times;</span><div .colorValueArea>"+blockColorsList[blockColorsList.length-1]+"</div></div>";
-      var currentBlock = "<div .colorBlock><span .closeBtn>&times;</span><input .colorValueArea value="+blockColorsList[blockColorsList.length-1].toString()+"></div>";
-      var container = $(#colorsContainer);
-      container.insert(currentBlock ,container.length - 1);
-      // stdout.$n(____________________{currentBlock}_________);
-      container[container.length - 2].style.set { background-color:  color(blockColorsList[blockColorsList.length-1])};            
-      const colorBlocks = $$(.colorBlock);
-      for ( var block in colorBlocks){
-        block.@#active = undefined;
-      }
-      container[container.length - 2].@#active = true;
-      const preview = $(#preview);
-      preview.style#background-color = color(blockColorsList[blockColorsList.length-1]);
+      // blockColorsList.push($(widget#color).value.toString());
+      // var currentBlock = "<div .colorBlock><span .closeBtn>&times;</span><input .colorValueArea value="+blockColorsList[blockColorsList.length-1].toString()+"></div>";
+      // var container = $(#colorsContainer);
+      // container.insert(currentBlock ,container.length - 1);
+      // container[container.length - 2].style.set { background-color:  color(blockColorsList[blockColorsList.length-1])};            
+      // const colorBlocks = $$(.colorBlock);
+      //   for ( var block in colorBlocks){
+      //   block.@#active = undefined;
+      // }
+      // container[container.length - 2].@#active = true;
+      LayoutControl.removeLayout();
+      var option = "addBlock";
+		  LayoutControl.generateLayout(option);
+      LayoutControl.fillPreview();
       $(#popupMenu).closePopup();
     }
   }
 
+class LayoutControl
+{
+    var blockColorsList = [];
+    var blockIsActive = [];
+
+    function generateLayout(option){
+      if (option == "addBlock") blockColorsList.push($(widget#color).value.toString());
+      stdout.$n(_________________{blockColorsList.length}_____);
+      $(body).insert("<div #preview></div>",0);
+      $(body).insert("<div #colorsContainer></div>",1);
+      var container = $(#colorsContainer);
+      
+      container.insert("<div #noColorBlock><h2>No color</h2></div>",0);
+      
+      var emptyBlock = "<div .colorBlock><span .closeBtn>&times;</span></div>";
+      for ( var i = 0; i < blockColorsList.length ; i++) {
+        container.insert(emptyBlock ,container.length);
+        container[container.length-1].style#background-color = color(blockColorsList[i]);      
+        container[container.length-1].insert("<input .colorValueArea value="+blockColorsList[i].toString()+">",1);      
+      }
+      container.insert("<div #addColorBlock><h2>Select color</h2></div>",container.length);
+      const colorBlocks = $$(.colorBlock);
+        for ( var block in colorBlocks){
+        block.@#active = undefined;
+      }
+  }
+
+    function fillPreview(){
+      const preview = $(#preview);
+      preview.style#background-color = color(blockColorsList[blockColorsList.length-1]);
+    }
+
+  function removeLayout(){
+    $(#preview).remove();
+    $(#colorsContainer).remove();
+  }
+}
+  
+  
 // class DataStorage
 // {
 //    var storage;

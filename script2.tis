@@ -5,19 +5,12 @@ class Body : Element
 {
 
 	function attached(){	
-		this.insert("<div #preview></div>",0);
-		this.insert("<div #colorsContainer></div>",1);
-		var container = $(#colorsContainer);
-		container.insert("<div #noColorBlock><h2>No color</h2></div>",0);
-		container.insert("<div #addColorBlock><h2>Select color</h2></div>",1);
-		// stdout.$n(______________________LOG__________________0000____{$(#colorsContainer).box(#width)});
+		var option = "";
+		LayoutControl.generateLayout(option);
 		view.on("size", function() {
 			const addColBlock = $(#addColorBlock);
-			 const isSmallEnough = $(#colorsContainer).box(#width) < 650;
-			// stdout.$n(______________________LOG______________enoughWidth________{(addColBlock.box(#width)*4+$(#colorsContainer).box(#width)*0.05)});
-			// stdout.$n(______________________LOG______________width________{$(#colorsContainer).box(#width)});
+			const isSmallEnough = $(#colorsContainer).box(#width) < 650;
 			$(#colorsContainer).@#layout_type  = isSmallEnough ? "grid" : "line";
-			// stdout.$n(______________________LOG______________________{$(#colorsContainer).@#layout_type});
 		});
 	}	
 }
