@@ -52,11 +52,27 @@ class LayoutControl
 {
     var blockColorsList = [];
     var blockIsActive = [];
+    var elementCounter = 0;
 
     function generateLayout(addColor){
       if (addColor == true) 
       {
-        blockColorsList.push($(widget#color).value.toString());
+        elementCounter++;
+        const colorValue = $(widget#color).value.toString();
+        var isDuplicated = blockColorsList.find(:el: el.id == colorValue); 
+        // var isDuplicated = blockColorsList.find(function(currentElement){
+        //   return currentElement == colorValue;
+        // }); 
+        stdout.$n(_________________{isDuplicated}_________);
+        blockColorsList.push(colorValue);
+        // blockColorsList.push({
+        //   id: elementCounter, 
+        //   color: colorValue,
+        //   active: false 
+        // }});
+        for ( var item in blockColorsList) {
+          stdout.$n(_________________{item}_________);
+        }
         removeLayout();
       }
       $(body).insert("<div #preview></div>",0);
@@ -65,7 +81,7 @@ class LayoutControl
       
       container.insert("<div #noColorBlock><h2>No color</h2></div>",0);
       
-      var emptyBlock = "<div .colorBlock><span .closeBtn>&times;</span></div>";
+      var emptyBlock = "<div .colorBlock><div .closeBtn>&times;</div></div>";
       for ( var i = 0; i < blockColorsList.length ; i++) {
         container.insert(emptyBlock ,container.length);
         container[container.length-1].style#background-color = color(blockColorsList[i]);      
