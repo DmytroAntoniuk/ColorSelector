@@ -27,6 +27,7 @@ body {
      prototype: ColorBlock url(script2.tis);
 }
 
+
 #preview {
      color: red;
      background: black;
@@ -109,21 +110,20 @@ templates {
   display: none;
 }
 
-          widget[type=hsv] {
-            var(hue): #ff0000;
-            prototype: HSVSelector url(colorSelector.tis);
-            display:block;
-            size:max-content;
-          }
+widget[type=hsv] {
+  var(hue): #ff0000;
+  prototype: HSVSelector url(colorSelector.tis);
+  display:block;
+  size:max-content;
+}
 
-          widget[type=hsv] > input.hue
-          {
-            display:block; 
-            border:none;
-            height: 3dip;
-            width:140dip;
-            /*margin:0 *;*/
-            background: linear-gradient(to right, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+widget[type=hsv] > input.hue
+{
+  display:block; 
+  border:none;
+  height: 3dip;
+  width:140dip;
+  background: linear-gradient(to right, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
           }
 
           widget[type=hsv] > div.layers { 
@@ -165,9 +165,22 @@ templates {
   border: none;
   background-color: none;
   font-size: 14dip;
-  /*width: *;*/
+  width: *;
   color: white;
   text-align: center;
-  size: 90%;
+  border: 2dip solid yellow;
+  /* position: absolute; 
+  left:0;
+  right:0;
+  top:0;
+  bottom:0; */
+  
+  
+  /* size: 90%; */
   /*margin: auto;*/
 }
+/* 
+.inputWrapper{
+  position: relative;
+  border: 2dip solid yellow;
+} */

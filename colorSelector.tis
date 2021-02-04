@@ -1,10 +1,3 @@
-// function self.ready() {
-//     stdout.$n(____________________START_________);
-//     var obj = new DataStorage();
-//     var container = $(#colorsContainer);
-//     obj.addData($(widget#color).value.toString(), container[container.length - 1]);
-// };
-
 class HSVSelector: Element 
           {
             this var hue = 0; // 0..360
@@ -39,33 +32,18 @@ class HSVSelector: Element
             }
           }
 
-// var blockColorsList = [];
-// var blocksCounter = 0;
-
-
 class AddColorBtn : Element
   {
-    // var blockMap = new BlockMap();
-
     function attached(){
       this.onClick = handleClick;
     }
 
     function handleClick(){
-      // blockColorsList.push($(widget#color).value.toString());
-      // var currentBlock = "<div .colorBlock><span .closeBtn>&times;</span><input .colorValueArea value="+blockColorsList[blockColorsList.length-1].toString()+"></div>";
-      // var container = $(#colorsContainer);
-      // container.insert(currentBlock ,container.length - 1);
-      // container[container.length - 2].style.set { background-color:  color(blockColorsList[blockColorsList.length-1])};            
-      // const colorBlocks = $$(.colorBlock);
-      //   for ( var block in colorBlocks){
-      //   block.@#active = undefined;
-      // }
-      // container[container.length - 2].@#active = true;
-      LayoutControl.removeLayout();
-      var option = "addBlock";
-		  LayoutControl.generateLayout(option);
-      LayoutControl.fillPreview();
+
+      const addColor = true;
+		  LayoutControl.generateLayout(addColor);
+      const previewColor = LayoutControl.blockColorsList[LayoutControl.blockColorsList.length-1];
+      LayoutControl.fillPreview(previewColor);
       $(#popupMenu).closePopup();
     }
   }
@@ -75,9 +53,12 @@ class LayoutControl
     var blockColorsList = [];
     var blockIsActive = [];
 
-    function generateLayout(option){
-      if (option == "addBlock") blockColorsList.push($(widget#color).value.toString());
-      stdout.$n(_________________{blockColorsList.length}_____);
+    function generateLayout(addColor){
+      if (addColor == true) 
+      {
+        blockColorsList.push($(widget#color).value.toString());
+        removeLayout();
+      }
       $(body).insert("<div #preview></div>",0);
       $(body).insert("<div #colorsContainer></div>",1);
       var container = $(#colorsContainer);
@@ -91,59 +72,37 @@ class LayoutControl
         container[container.length-1].insert("<input .colorValueArea value="+blockColorsList[i].toString()+">",1);      
       }
       container.insert("<div #addColorBlock><h2>Select color</h2></div>",container.length);
-      const colorBlocks = $$(.colorBlock);
-        for ( var block in colorBlocks){
-        block.@#active = undefined;
-      }
+      setActiveBlock(container[container.length - 2]);
   }
 
-    function fillPreview(){
+    function fillPreview(previewColor){
       const preview = $(#preview);
-      preview.style#background-color = color(blockColorsList[blockColorsList.length-1]);
+      preview.style#background-color = color(previewColor);
     }
 
   function removeLayout(){
     $(#preview).remove();
     $(#colorsContainer).remove();
   }
+
+  function removeBlock(colorBlock)
+  {
+    colorBlock.@#toDelete = true; 
+		var container = $(#colorsContainer);
+		var i = 0;
+		for (i = 0; i < container.length; i++) {
+			if (container[i].@#toDelete == true) break;
+		}
+		LayoutControl.blockColorsList.remove(i-1);
+		colorBlock.remove();
+  }
+
+  function setActiveBlock(block){
+      var container = $(#colorsContainer);
+      const colorBlocks = $$(.colorBlock);
+        for ( var block in colorBlocks){
+        block.@#active = undefined;
+      }
+      block.@#active = true;
+  }
 }
-  
-  
-// class DataStorage
-// {
-//    var storage;
-//    var root;
-
-//     function this() {
-//          storage = Storage.open("database.db");
-//          root =  initDb();
-//          var container = $(#colorsContainer);
-//          for (var i = 0; i < container.length; i++) {
-//             storage.root.block[i] = container[i];
-//           }
-
-//          stdout.$n(____________________ATTACHED_________{storage}____{root});
-//     }
-
-//     function initDb() {
-//       stdout.$n(____________________INIT_________);
-//       storage.root = { 
-//         block: storage.createIndex(#object, true);
-//       };
-//       return storage.root;
-//     }
-
-//   function addData(blockObj) {
-//       stdout.$n(____________________ADD_DATA___________________________);
-//       var container = $(#colorsContainer);
-//       storage.root.block[container.length-1] = container[container.length-1];
-//   }
-
-//   function showData() {
-//     stdout.$n(____________________SHOW_DATA_________);
-//       for(obj in storage.root.block);
-//       stdout.$n(child.color, child.block);
-//   } 
-// }
-
-
