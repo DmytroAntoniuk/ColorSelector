@@ -19,12 +19,7 @@ class Body : Element
 class AddColorBlock : Element
 {
 	function attached(){
-		stdout.$n(attachedAddColorBlock);
 		this.onClick = handleClick;
-	}
-
-	function detached(){
-		stdout.$n(detachedAddColorBlock);
 	}
 
 	function handleClick(){
@@ -35,12 +30,7 @@ class AddColorBlock : Element
 class CloseButton : Element
 {
 	function attached(){
-		stdout.$n(attachedClose);
 		this.onClick = handleClick;
-	}
-
-	function detached(){
-		stdout.$n(detachedClose);
 	}
 
 	function handleClick(){
@@ -52,19 +42,14 @@ class CloseButton : Element
 class ColorBlock : Element
 {
 	function attached(){
-		stdout.$n(attachedColorBtn);
 		this.onClick = handleClick;
 	}
 
-	function detached(){
-		stdout.$n(detachedColorBtn);
-	}
-
 	function handleClick(){
-
 		LayoutControl.setActiveBlock(this);
 		LayoutControl.fillPreview(this.style#background-color);
 	}
+
 }
 
 class NoColorBlock : Element
@@ -74,6 +59,19 @@ class NoColorBlock : Element
 	}
 
 	function handleClick(){
+		LayoutControl.setActiveBlock(this);
 		LayoutControl.fillPreview(color("white"));
+	}
+}
+
+class ColorValueArea : Element
+{
+	function attached(){
+		// stdout.$n(_______________INP______);
+		this.on("keyup",function(event) {
+   			if (event.keyCode == Event.VK_RETURN)
+			    $(#preview).style#background-color = this.value.toString();	
+     	    	this.parent.style#background-color = this.value.toString();	
+		});
 	}
 }

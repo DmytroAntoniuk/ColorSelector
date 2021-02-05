@@ -177,4 +177,5 @@ widget[type=hsv] > input.hue
   margin-left: auto;
   margin-right: auto;
   display: block;
+  prototype: ColorValueArea url(script2.tis);
 }

@@ -42,7 +42,7 @@ class AddColorBtn : Element
 
       const addColor = true;
 		  LayoutControl.generateLayout(addColor);
-      const previewColor = LayoutControl.blockColorsList[LayoutControl.blockColorsList.length-1];
+      const previewColor = LayoutControl.blockColorsList[LayoutControl.blockColorsList.length-1].color;
       LayoutControl.fillPreview(previewColor);
       $(#popupMenu).closePopup();
     }
@@ -51,27 +51,27 @@ class AddColorBtn : Element
 class LayoutControl
 {
     var blockColorsList = [];
-    var blockIsActive = [];
+    // var blockIsActive = [];
     var elementCounter = 0;
 
     function generateLayout(addColor){
       if (addColor == true) 
       {
-        elementCounter++;
         const colorValue = $(widget#color).value.toString();
-        var isDuplicated = blockColorsList.find(:el: el.id == colorValue); 
+        var isDuplicated = blockColorsList.find(:el: el.color == colorValue); 
         // var isDuplicated = blockColorsList.find(function(currentElement){
         //   return currentElement == colorValue;
         // }); 
-        stdout.$n(_________________{isDuplicated}_________);
-        blockColorsList.push(colorValue);
-        // blockColorsList.push({
-        //   id: elementCounter, 
-        //   color: colorValue,
-        //   active: false 
-        // }});
-        for ( var item in blockColorsList) {
-          stdout.$n(_________________{item}_________);
+        if (!isDuplicated)
+        {
+          elementCounter++;
+          // blockColorsList.push(colorValue);
+        
+        blockColorsList.push({
+          id: elementCounter, 
+          color: colorValue,
+          active: false 
+        });
         }
         removeLayout();
       }
@@ -84,8 +84,8 @@ class LayoutControl
       var emptyBlock = "<div .colorBlock><div .closeBtn>&times;</div></div>";
       for ( var i = 0; i < blockColorsList.length ; i++) {
         container.insert(emptyBlock ,container.length);
-        container[container.length-1].style#background-color = color(blockColorsList[i]);      
-        container[container.length-1].insert("<input .colorValueArea value="+blockColorsList[i].toString()+">",1);      
+        container[container.length-1].style#background-color = color(blockColorsList[i].color);      
+        container[container.length-1].insert("<input .colorValueArea value="+blockColorsList[i].color+">",1);      
       }
       container.insert("<div #addColorBlock><h2>Select color</h2></div>",container.length);
       setActiveBlock(container[container.length - 2]);
