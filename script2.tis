@@ -5,8 +5,8 @@ class Body : Element
 {
 
 	function attached(){	
-		const addColor = false;
-		LayoutControl.generateLayout(addColor);
+		const needToAddColor = false;
+		LayoutControl.generateLayout(needToAddColor);
 		view.on("size", function() {
 			const addColBlock = $(#addColorBlock);
 			const isSmallEnough = $(#colorsContainer).box(#width) < 650;
