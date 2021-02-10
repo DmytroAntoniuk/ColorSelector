@@ -42,8 +42,8 @@ body {
 .closeBtn {
   margin: 3%;
   /* border: 5dip solid green; */
-  width: 15dip;
-  height: 15dip;
+  width: 10%;
+  height: 10%;
   color: red;
   font-weight: bold;
   float: auto;
@@ -178,4 +178,8 @@ widget[type=hsv] > input.hue
   margin-right: auto;
   display: block;
   prototype: ColorValueArea url(script2.tis);
+}
+
+#fileMenu{
+  prototype: FileMenu url(fileMenu.tis);
 }

@@ -62,8 +62,11 @@ class LayoutControl
 
   function generateBlocks()
   {
-    $(body).insert("<div #preview></div>",0);
-    $(body).insert("<div #colorsContainer></div>",1);
+    $(body).insert("<div #fileMenu></div>",0);
+    $(#fileMenu).insert("<button #openFileBtn>Open file</button>",0);
+    $(#fileMenu).insert("<br><button #saveFileBtn>Save file</button>",1);
+    $(body).insert("<div #preview></div>",1);
+    $(body).insert("<div #colorsContainer></div>",2);
     var container = $(#colorsContainer);
     container.insert("<div #noColorBlock><h2>No color</h2></div>",0);
     generateColorBlocks(container);
@@ -90,7 +93,6 @@ class LayoutControl
         // }); 
         if (!isDuplicated)
         {
-          elementCounter++;       
           for (var block in blockColorsList)
           {
             block.active = true ? false : true;        
@@ -100,9 +102,9 @@ class LayoutControl
             color: colorValue,
             active: true 
           });
-          for (var block in blockColorsList){
-            stdout.$n(__________{block.active});
-          }
+          elementCounter++;       
+          // var (i,v) = blockColorsList.find(:el: el.active == true);
+          // stdout.$n(__________{i}______{v.id});
         }
         removeLayout();
       }
@@ -114,6 +116,7 @@ class LayoutControl
   }
 
   function removeLayout(){
+    $(#fileMenu).remove();
     $(#preview).remove();
     $(#colorsContainer).remove();
   }
@@ -131,11 +134,40 @@ class LayoutControl
   }
 
   function setActiveBlock(block){
-      var container = $(#colorsContainer);
+      // const colorBlocks = $$(.colorBlock);
+      // for ( var block in colorBlocks){
+      //   block.@#active = undefined;
+      // }
+
+      // var activeListItem = blockColorsList.find(:el: el.active == true);
+      // stdout.$n(_____________{activeListItem.color}_____{activeListItem.id}____BEFORE_____);
+      // var i = 0;
+      // if (activeListItem != undefined)
+      // {
+      //   stdout.$n(_________ACTIVE_________);
+      //   const colorBlocks = $$(.colorBlock);
+      //   colorBlocks[activeListItem.id].@#active = undefined; 
+      //   blockColorsList[activeListItem.id].active = false;
+      //   stdout.$n(___________{blockColorsList[activeListItem.id].id});
+      //   block.@#active = true;
+      //   while (colorBlocks[i].@#active != true)
+      //   {
+      //     i++;
+      //   }
+      //   blockColorsList[i].active = true;
+      // }
+      // stdout.$n(_____________{blockColorsList[i].color}____{blockColorsList[i].id}_____{i}____AFTER____);
+
+
+       var container = $(#colorsContainer);
       const colorBlocks = $$(.colorBlock);
         for ( var block in colorBlocks){
         block.@#active = undefined;
       }
       block.@#active = true;
+  }
+
+  function clearBlockList(){
+    blockColorsList = [];
   }
 }
