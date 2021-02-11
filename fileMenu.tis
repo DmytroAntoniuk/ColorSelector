@@ -1,46 +1,46 @@
 class FileMenu : Element
 {
     event click $(button#saveFileBtn) {
-        stdout.$n(___________SAVE_FILE______);        
-        const fileStreamWrite = Stream.openFile("/Users/dantoni/Documents/Projects/ColorSelector/data.csel", "w");
-        const blockListLength = String.printf("%d\n", LayoutControl.blockColorsList.length);
-        fileStreamWrite.print(blockListLength); 
-        for ( var block in LayoutControl.blockColorsList) {
-            const blockData = String.printf("%v", block);
-            stdout.$n(________BLOCK_DATA_=_{blockData}_____);
-            fileStreamWrite.print(blockData); 
-        }  
-        fileStreamWrite.close();
+        saveFile();
         return true; 
     }
 
     event click $(button#openFileBtn) {
-        stdout.$n(___________OPEN_FILE______);
-        LayoutControl.clearBlockList();
-        const fileStreamRead = Stream.openFile("/Users/dantoni/Documents/Projects/ColorSelector/data.csel", "r");
-        const blockListLength = fileStreamRead.readln();
-        const blockData = fileStreamRead.readln();
-        fileStreamRead.close();
-        var parsedBlockData;
-        stdout.$n(blockListLength = {blockListLength});
-        for(var i = 0; i< blockListLength; i++)
-        {
-            parsedBlockData = parseData(blockData);
-            LayoutControl.blockColorsList.push({
-                id: parsedBlockData.id, 
-                color: parsedBlockData.color,
-                active: parsedBlockData.active
-            });
-            
-        }
-        for (var block in LayoutControl.blockColorsList){
-            stdout.$n(ID: {block.id} COLOR: {block.color} active: {block.active});
-        } 
-
-        const needToAddColor = false;
-        LayoutControl.removeLayout();
-        LayoutControl.generateLayout(needToAddColor);
-
+        openFile();
         return true; 
     }
+
+    function saveFile(){     
+        const fileStreamWrite = Stream.openFile("/Users/dantoni/Documents/Projects/ColorSelector/data.csel", "w");
+        const blockListJSON = JSON.stringify(LayoutControl.blockColorsList);
+        fileStreamWrite.print(blockListJSON); 
+        fileStreamWrite.close();
+    }
+
+    function openFile(){
+        LayoutControl.clearBlockList();
+        LayoutControl.removeLayout();
+        parseBlocksProperties();
+        const needToAddColor = false;
+        LayoutControl.generateLayout(needToAddColor);
+        var container = $(#colorsContainer);
+        setActiveBlock(container[container.length - 2]);
+
+    }
+
+    function parseBlocksProperties(){
+        const fileStreamRead = Stream.openFile("/Users/dantoni/Documents/Projects/ColorSelector/data.csel", "r");
+        const blockData = fileStreamRead.readln();
+        fileStreamRead.close();
+        var blockProperties = parseData(blockData);
+        for ( var block in blockProperties) 
+        {         
+            LayoutControl.blockColorsList.push({
+                id: block.id, 
+                color: block.color,
+                active: block.active
+            });
+        }
+    }
+
 }

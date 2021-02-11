@@ -1,36 +1,35 @@
 class HSVSelector: Element 
-          {
-            this var hue = 0; // 0..360
-            this var val = 0.0; // 0..1.0
-            this var sat = 0.0; // 0..1.0
+{
+  this var hue = 0; // 0..360
+  this var val = 0.0; // 0..1.0
+  this var sat = 0.0; // 0..1.0
 
-            function attached() {
-              var me = this;
-              $(div.value) << event mousedown(evt) {
-                 var (w,h) = this.box(#dimension);
-                 me.val = 1.0 - (evt.y + 0.5) / h.toFloat(); 
-                 me.sat = 1.0 - (evt.x + 0.5) / w.toFloat(); 
-                 me.postEvent("change");
-                 me.$(div.pointer).style.set {
-                   margin-left: evt.x,
-                   margin-top: evt.y,
-                 };
-              };
-            }
+  function attached() {
+    var me = this;
+    $(div.value) << event mousedown(evt) {
+      var (w,h) = this.box(#dimension);
+      me.val = 1.0 - (evt.y + 0.5) / h.toFloat(); 
+      me.sat = 1.0 - (evt.x + 0.5) / w.toFloat(); 
+      me.postEvent("change");
+      me.$(div.pointer).style.set {  
+        margin-left: evt.x,
+        margin-top: evt.y,
+      };
+    };
+  }
 
-            event change $(input.hue) (evt, elHue) {
-              this.hue = elHue.value;
-              var color = Color.hsv(this.hue,1,1);
-              this.style.variable("hue", color);
-              this.postEvent("change");
-            }
+  event change $(input.hue) (evt, elHue) {
+    this.hue = elHue.value;
+    var color = Color.hsv(this.hue,1,1);
+    this.style.variable("hue", color);
+    this.postEvent("change");
+  }
 
-            property value(v) {
-              get return Color.hsv( this.hue, this.sat, this.val );
-              set {
-              }
-            }
-          }
+  property value(v) {
+    get return Color.hsv( this.hue, this.sat, this.val );
+    set {}
+  }
+}
 
 class AddColorBtn : Element
   {
@@ -56,8 +55,6 @@ class LayoutControl
     function generateLayout(needToAddColor){
       addNewColor(needToAddColor);
       generateBlocks();
-      var container = $(#colorsContainer);
-      setActiveBlock(container[container.length - 2]);
   }
 
   function generateBlocks()
@@ -84,30 +81,25 @@ class LayoutControl
   }
 
   function addNewColor(needToAddColor) {
-          if (needToAddColor == true) 
+    if (needToAddColor == true) 
+    {
+      const colorValue = $(widget#color).value.toString();
+      var isDuplicated = blockColorsList.find(:el: el.color == colorValue); 
+      if (!isDuplicated)
       {
-        const colorValue = $(widget#color).value.toString();
-        var isDuplicated = blockColorsList.find(:el: el.color == colorValue); 
-        // var isDuplicated = blockColorsList.find(function(currentElement){
-        //   return currentElement == colorValue;
-        // }); 
-        if (!isDuplicated)
+        for (var block in blockColorsList)
         {
-          for (var block in blockColorsList)
-          {
-            block.active = true ? false : true;        
-          }
-          blockColorsList.push({
-            id: elementCounter, 
-            color: colorValue,
-            active: true 
-          });
-          elementCounter++;       
-          // var (i,v) = blockColorsList.find(:el: el.active == true);
-          // stdout.$n(__________{i}______{v.id});
+          block.active = true ? false : true;        
         }
-        removeLayout();
+        blockColorsList.push({
+          id: elementCounter, 
+          color: colorValue,
+          active: true 
+        });
+        elementCounter++;       
       }
+      removeLayout();
+    }
   }
 
   function fillPreview(previewColor){
@@ -139,32 +131,32 @@ class LayoutControl
       //   block.@#active = undefined;
       // }
 
-      // var activeListItem = blockColorsList.find(:el: el.active == true);
-      // stdout.$n(_____________{activeListItem.color}_____{activeListItem.id}____BEFORE_____);
-      // var i = 0;
-      // if (activeListItem != undefined)
-      // {
-      //   stdout.$n(_________ACTIVE_________);
-      //   const colorBlocks = $$(.colorBlock);
-      //   colorBlocks[activeListItem.id].@#active = undefined; 
-      //   blockColorsList[activeListItem.id].active = false;
-      //   stdout.$n(___________{blockColorsList[activeListItem.id].id});
-      //   block.@#active = true;
-      //   while (colorBlocks[i].@#active != true)
-      //   {
-      //     i++;
-      //   }
-      //   blockColorsList[i].active = true;
-      // }
-      // stdout.$n(_____________{blockColorsList[i].color}____{blockColorsList[i].id}_____{i}____AFTER____);
-
-
-       var container = $(#colorsContainer);
-      const colorBlocks = $$(.colorBlock);
-        for ( var block in colorBlocks){
-        block.@#active = undefined;
+      var activeListItem = blockColorsList.find(:el: el.active == true);
+      stdout.$n(_____________{activeListItem.color}_____{activeListItem.id}____BEFORE_____);
+      var i = 0;
+      if (activeListItem != undefined)
+      {
+        stdout.$n(_________ACTIVE_________);
+        const colorBlocks = $$(.colorBlock);
+        colorBlocks[activeListItem.id].@#active = undefined; 
+        blockColorsList[activeListItem.id].active = false;
+        stdout.$n(___________{blockColorsList[activeListItem.id].id});
+        block.@#active = true;
+        while (colorBlocks[i].@#active != true)
+        {
+          i++;
+        }
+        blockColorsList[i].active = true;
       }
-      block.@#active = true;
+      stdout.$n(_____________{blockColorsList[i].color}____{blockColorsList[i].id}_____{i}____AFTER____);
+
+
+      //  var container = $(#colorsContainer);
+      // const colorBlocks = $$(.colorBlock);
+      //   for ( var block in colorBlocks){
+      //   block.@#active = undefined;
+      // }
+      // block.@#active = true;
   }
 
   function clearBlockList(){
