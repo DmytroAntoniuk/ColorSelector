@@ -6,8 +6,8 @@ class Body : Element
 	function attached(){	
 		const needToAddColor = false;
 		LayoutControl.generateLayout(needToAddColor);
-		      var container = $(#colorsContainer);
-      setActiveBlock(container[container.length - 2]);
+	// 	      var container = $(#colorsContainer);
+    //   setActiveBlock(container[container.length - 2]);
 		view.on("size", function() {
 			const addColBlock = $(#addColorBlock);
 			const isSmallEnough = $(#colorsContainer).box(#width) < 650;
@@ -46,8 +46,7 @@ class ColorBlock : Element
 	}
 
 	function handleClick(){
-		LayoutControl.setActiveBlock(this);
-		LayoutControl.fillPreview(this.style#background-color);
+		LayoutControl.changePreviewColor(this);
 	}
 
 }
@@ -69,9 +68,13 @@ class ColorValueArea : Element
 	function attached(){
 		this.on("keyup",function(event) {
    			if (event.keyCode == Event.VK_RETURN)
-			    $(#preview).style#background-color = this.value.toString();	
-     	    	this.parent.style#background-color = this.value.toString();	
+			   {
+				 const colorBlock = this.parent;
+			     $(#preview).style#background-color = this.value.toString();	
+				 var listBlock = LayoutControl.blockColorsList.find(:el :el.id == colorBlock.@#identifier);
+     	    	 listBlock.color = this.value.toString();
+				 this.parent.style#background-color = listBlock.color;	
+			   }
 		});
 	}
 }
-

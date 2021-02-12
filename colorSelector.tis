@@ -75,6 +75,8 @@ class LayoutControl
     var emptyBlock = "<div .colorBlock><div .closeBtn>&times;</div></div>";
     for ( var i = 0; i < blockColorsList.length ; i++) {
         container.insert(emptyBlock ,container.length);
+        container[container.length-1].@#identifier = blockColorsList[i].id;
+        container[container.length-1].@#active = blockColorsList[i].active;
         container[container.length-1].style#background-color = color(blockColorsList[i].color);      
         container[container.length-1].insert("<input .colorValueArea value="+blockColorsList[i].color+">",1);      
       }
@@ -89,7 +91,7 @@ class LayoutControl
       {
         for (var block in blockColorsList)
         {
-          block.active = true ? false : true;        
+          if (block.active == true) block.active = false;
         }
         blockColorsList.push({
           id: elementCounter, 
@@ -131,35 +133,68 @@ class LayoutControl
       //   block.@#active = undefined;
       // }
 
-      var activeListItem = blockColorsList.find(:el: el.active == true);
-      stdout.$n(_____________{activeListItem.color}_____{activeListItem.id}____BEFORE_____);
-      var i = 0;
-      if (activeListItem != undefined)
-      {
-        stdout.$n(_________ACTIVE_________);
-        const colorBlocks = $$(.colorBlock);
-        colorBlocks[activeListItem.id].@#active = undefined; 
-        blockColorsList[activeListItem.id].active = false;
-        stdout.$n(___________{blockColorsList[activeListItem.id].id});
-        block.@#active = true;
-        while (colorBlocks[i].@#active != true)
-        {
-          i++;
-        }
-        blockColorsList[i].active = true;
-      }
-      stdout.$n(_____________{blockColorsList[i].color}____{blockColorsList[i].id}_____{i}____AFTER____);
-
-
-      //  var container = $(#colorsContainer);
-      // const colorBlocks = $$(.colorBlock);
-      //   for ( var block in colorBlocks){
-      //   block.@#active = undefined;
+      // var activeListItem = blockColorsList.find(:el: el.active == true);
+      // stdout.$n(_____________{activeListItem.color}_____{activeListItem.id}____BEFORE_____);
+      // var i = 0;
+      // if (activeListItem != undefined)
+      // {
+      //   stdout.$n(_________ACTIVE_________);
+      //   const colorBlocks = $$(.colorBlock);
+      //   colorBlocks[activeListItem.id].@#active = undefined; 
+      //   blockColorsList[activeListItem.id].active = false;
+      //   stdout.$n(___________{blockColorsList[activeListItem.id].id});
+      //   block.@#active = true;
+      //   while (colorBlocks[i].@#active != true)
+      //   {
+      //     i++;
+      //   }
+      //   blockColorsList[i].active = true;
       // }
-      // block.@#active = true;
+      // stdout.$n(_____________{blockColorsList[i].color}____{blockColorsList[i].id}_____{i}____AFTER____);
+
+
+       var container = $(#colorsContainer);
+      const colorBlocks = $$(.colorBlock);
+        for ( var block in colorBlocks){
+        block.@#active = undefined;
+      }
+      block.@#active = true;
   }
 
   function clearBlockList(){
     blockColorsList = [];
+  }
+
+  function changePreviewColor(block){
+    stdout.$n(______________________);
+		var list = LayoutControl.blockColorsList;
+		const colorBlocks = $$(.colorBlock);
+		for (var i = 0; i< list.length; i++)
+        {
+			stdout.$n(list[i].active = {list[i].active});
+			stdout.$n(colorBlocks[i].@#active = {colorBlocks[i].@#active});
+          if (list[i].active == true)
+		  {
+			list[i].active = false;
+			colorBlocks[i].@#active = undefined;
+			break;
+		  } 
+		  
+        }
+
+		for (var i = 0; i< list.length; i++)
+		{
+		  stdout.$n(list[i].id = {list[i].id});
+		  stdout.$n(block.@#identifier = {block.@#identifier});
+		  if (list[i].id == block.@#identifier)
+		  {
+			  list[i].active = true;
+			  block.@#active = true;
+			  break;
+		  }
+		}
+		// LayoutControl.removeLayout();
+		// LayoutControl.generateBlocks();
+		LayoutControl.fillPreview(block.style#background-color);
   }
 }
