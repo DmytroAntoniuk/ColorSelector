@@ -28,6 +28,10 @@ body {
      prototype: ColorBlock url(script2.tis);
 }
 
+.colorBlock:hover {
+  box-shadow: 2px 2px 0 #00ff00 inset, -2px 2px 0 #00ff00 inset, -2px -2px 0 #00ff00 inset, 2px -2px 0 #00ff00 inset;
+
+}
 
 #preview {
      color: red;
@@ -40,7 +44,7 @@ body {
 }
 
 .closeBtn {
-  margin: 3%;
+  margin: 5dip;
   /* border: 5dip solid green; */
   width: 10%;
   height: 10%;
@@ -68,6 +72,9 @@ body {
      margin: 1%;
      prototype: NoColorBlock url(script2.tis);
 }
+#noColorBlock:hover{
+  box-shadow: 2px 2px 0 #00ff00 inset, -2px 2px 0 #00ff00 inset, -2px -2px 0 #00ff00 inset, 2px -2px 0 #00ff00 inset;
+}
 
 #addColorBlock {
      text-align: center;
@@ -81,6 +88,10 @@ body {
      border-radius: 15% 15% 15% 15%;
      margin: 1%;
      prototype: AddColorBlock url(script2.tis);
+}
+
+#addColorBlock:hover{
+  box-shadow: 2px 2px 0 #00ff00 inset, -2px 2px 0 #00ff00 inset, -2px -2px 0 #00ff00 inset, 2px -2px 0 #00ff00 inset;
 }
 
 div[active = true]{
@@ -131,39 +142,43 @@ widget[type=hsv] > input.hue
   background: linear-gradient(to right, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
           }
 
-          widget[type=hsv] > div.layers { 
-            size:155dip;
-            flow:stack;
-            /*margin:*;*/
-          }
+  widget[type=hsv] > div.layers { 
+    size:155dip;
+    flow:stack;
+  }
 
-          widget[type=hsv] > div.layers > div.value {
-            size:*;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.0) 1%, rgba(0,0,0,1.0) 100%); 
-          }
-          widget[type=hsv] > div.layers > div.saturation {
-            size:*;
-            background: linear-gradient(to right, color(hue) 0%, #ffffff 100%); 
-          }
+  widget[type=hsv] > div.layers > div.value {
+    size:*;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.0) 1%, rgba(0,0,0,1.0) 100%); 
+  }
+          
+  widget[type=hsv] > div.layers > div.saturation {
+    size:*;
+    background: linear-gradient(to right, color(hue) 0%, #ffffff 100%); 
+  }
 
-          widget[type=hsv] > div.layers > div.pointer {
-            border: 2dip solid #fff;
-            size:7dip;
-            transform: translate(-50%,-50%);
-            border-radius:50%;
-          }
-
-#popupMenu{
-  /*border: 10dip solid red;*/
-}
+  widget[type=hsv] > div.layers > div.pointer {
+    border: 2dip solid #fff;
+    size:7dip;
+    transform: translate(-50%,-50%);
+    border-radius:50%;
+  }
 
 #addColorBtn{
-  prototype: AddColorBtn url(colorSelector.tis);
+  background-color:red;
   display: inline-block;
   padding: 5%;
   margin: auto;
   font-size: 14dip;
-  border: 1dip solid red;
+  color: white;
+  border: 1dip solid black;
+  border-radius: 20%;
+  prototype: AddColorBtn url(colorSelector.tis);
+}
+
+#addColorBtn:hover{
+  border: 1dip solid white;
+  background-color:green;
 }
 
 .colorValueArea{
@@ -182,4 +197,8 @@ widget[type=hsv] > input.hue
 
 #fileMenu{
   prototype: FileMenu url(fileMenu.tis);
+}
+
+#preview{
+  prototype: Preview url(script2.tis);
 }
