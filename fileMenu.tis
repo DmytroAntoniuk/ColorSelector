@@ -23,8 +23,8 @@ class FileMenu : Element
         parseBlocksProperties();
         const needToAddColor = false;
         LayoutControl.generateLayout(needToAddColor);
-        // var container = $(#colorsContainer);
-        // setActiveBlock(container[container.length - 2]);
+        var activeBlock = LayoutControl.blockColorsList.find(:el :el.active == true)
+        LayoutControl.fillPreview(activeBlock.color);
 
     }
 

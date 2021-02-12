@@ -106,7 +106,7 @@ class LayoutControl
 
   function fillPreview(previewColor){
     const preview = $(#preview);
-    preview.style#background-color = color(previewColor);
+    preview.style#background-color = previewColor;
   }
 
   function removeLayout(){
@@ -125,40 +125,6 @@ class LayoutControl
 		}
 		LayoutControl.blockColorsList.remove(i-1);
 		colorBlock.remove();
-  }
-
-  function setActiveBlock(block){
-      // const colorBlocks = $$(.colorBlock);
-      // for ( var block in colorBlocks){
-      //   block.@#active = undefined;
-      // }
-
-      // var activeListItem = blockColorsList.find(:el: el.active == true);
-      // stdout.$n(_____________{activeListItem.color}_____{activeListItem.id}____BEFORE_____);
-      // var i = 0;
-      // if (activeListItem != undefined)
-      // {
-      //   stdout.$n(_________ACTIVE_________);
-      //   const colorBlocks = $$(.colorBlock);
-      //   colorBlocks[activeListItem.id].@#active = undefined; 
-      //   blockColorsList[activeListItem.id].active = false;
-      //   stdout.$n(___________{blockColorsList[activeListItem.id].id});
-      //   block.@#active = true;
-      //   while (colorBlocks[i].@#active != true)
-      //   {
-      //     i++;
-      //   }
-      //   blockColorsList[i].active = true;
-      // }
-      // stdout.$n(_____________{blockColorsList[i].color}____{blockColorsList[i].id}_____{i}____AFTER____);
-
-
-       var container = $(#colorsContainer);
-      const colorBlocks = $$(.colorBlock);
-        for ( var block in colorBlocks){
-        block.@#active = undefined;
-      }
-      block.@#active = true;
   }
 
   function clearBlockList(){
@@ -193,8 +159,6 @@ class LayoutControl
 			  break;
 		  }
 		}
-		// LayoutControl.removeLayout();
-		// LayoutControl.generateBlocks();
 		LayoutControl.fillPreview(block.style#background-color);
   }
 }
