@@ -1,1 +1,1 @@
-# ColorSelector
+Color selector that has opportunities to create, edit and delete different colors. Implemented with HTML+CSS+Sciter
