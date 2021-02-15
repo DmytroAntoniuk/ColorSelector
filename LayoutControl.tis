@@ -1,15 +1,15 @@
-class LayoutControl
+class LayoutController
 {
     var blockColorsList = [];
     var elementCounter = 0;
 
-    function generateLayout(needToAddColor){
-      addNewColor(needToAddColor);
+    function generateLayout(){
+      const colorValue = $(widget#color).value.toString();
+      addNewColor(colorValue);
       generateBlocks();
   }
 
-  function generateBlocks()
-  {
+  function generateBlocks(){
     const body = $(body);
     const bodyHTML = "<div #fileMenu></div>";
     const bodySequenceNumber = 0;
@@ -37,8 +37,7 @@ class LayoutControl
     container.insert(addColorBlockHTML,addColorBlockSequenceNumber);
   }
 
-  function generateColorBlocks(container)
-  {
+  function generateColorBlocks(container){
     var emptyBlock = "<div .colorBlock><div .closeBtn>&times;</div></div>";
     for ( var i = 0; i < blockColorsList.length ; i++) {
         container.insert(emptyBlock ,container.length);
@@ -52,10 +51,7 @@ class LayoutControl
       }
   }
 
-  function addNewColor(needToAddColor) {
-    if (needToAddColor == true) 
-    {
-      const colorValue = $(widget#color).value.toString();
+  function addNewColor(colorValue) {
       var isDuplicated = blockColorsList.find(:el: el.color == colorValue); 
       if (!isDuplicated)
       {
@@ -68,10 +64,10 @@ class LayoutControl
           color: colorValue,
           active: true 
         });
-        elementCounter++;       
+        elementCounter++;  
+        stdout.$n(______{elementCounter}_____);     
       }
       removeLayout();
-    }
   }
 
   function fillPreview(previewColor){
@@ -85,15 +81,14 @@ class LayoutControl
     $(#colorsContainer).remove();
   }
 
-  function removeBlock(colorBlock)
-  {
+  function removeBlock(colorBlock){
     colorBlock.@#toDelete = true; 
 		var container = $(#colorsContainer);
 		var i = 0;
 		for (i = 0; i < container.length; i++) {
 			if (container[i].@#toDelete == true) break;
 		}
-		LayoutControl.blockColorsList.remove(i-1);
+		LayoutController.blockColorsList.remove(i-1);
 		colorBlock.remove();
   }
 
@@ -102,7 +97,7 @@ class LayoutControl
   }
 
   function changePreviewColor(block){
-		var list = LayoutControl.blockColorsList;
+		var list = LayoutController.blockColorsList;
 		const colorBlocks = $$(.colorBlock);
 		for (var i = 0; i< list.length; i++)
     {
@@ -123,6 +118,12 @@ class LayoutControl
 			  break;
 		  }
 		}
-		LayoutControl.fillPreview(block.style#background-color);
+		LayoutController.fillPreview(block.style#background-color);
+  }
+  function getColorByID(id){
+        var color = blockColorsList.find(function(currentBlock){
+        if (currentBlock.id == id) return currentBlock.color;
+        // return undefined;
+      });
   }
 }

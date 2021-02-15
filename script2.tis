@@ -3,8 +3,7 @@ include "LayoutControl.tis";
 class Body : Element
 {
 	function attached(){	
-		const needToAddColor = false;
-		LayoutControl.generateLayout(needToAddColor);
+		LayoutController.generateBlocks();
 		checkLayoutType();
 	}
 
@@ -36,7 +35,7 @@ class CloseButton : Element
 
 	function handleClick(){
 		const colorBlock = this.parent;
-		LayoutControl.removeBlock(colorBlock);
+		LayoutController.removeBlock(colorBlock);
 	}
 }
 
@@ -47,8 +46,10 @@ class ColorBlock : Element
 	}
 
 	function handleClick(){
-		// this.postEvent("colorChanged");
-		LayoutControl.changePreviewColor(this);
+		// const currentColor = LayoutController.getColorByID(this.@#identifier);
+		// stdout.$n(currentColor = {currentColor});
+		// self.postEvent("colorChanged", {color : currentColor});
+		 LayoutController.changePreviewColor(this);
 	}
 
 }
@@ -56,22 +57,33 @@ class ColorBlock : Element
 class Preview : Element
 {
 	function attached(){
-		
+		onNoColorBlockClicked();
+	}
+
+	function onNoColorBlockClicked(){
+		self.on("colorChanged", function(evt){
+			// stdout.$n(____COLOR_CHANGED____{evt.data.color});
+		    $(#preview).style#background-color = evt.data.color;
+		});		
 	}
 }
 
 class NoColorBlock : Element
 {
+	// event click $(this){
+	// 	self.postEvent("newColorSelected", "white");
+	// 	self.on("newColorSelected", function(evt){
+	// 		stdout.$n(____COLOR_CHANGED____{evt.data});
+	// 	    $(#preview).style#background-color = evt.data;
+	// 	});		
+	// }
 	function attached(){
 		this.onClick = handleClick;
 	}
 
 	function handleClick(){
-		self.postEvent("noColorSelected", "white");
-		self.on("noColorSelected", function(evt){
-			stdout.$n(____COLOR_CHANGED____{evt.data});
-		    $(#preview).style#background-color = evt.data;
-		});
+		const currentColor = color("white");
+		self.postEvent("colorChanged", {color : currentColor});
 	}
 }
 
@@ -83,7 +95,7 @@ class ColorValueArea : Element
 			   {
 				 const colorBlock = this.parent;
 			     $(#preview).style#background-color = this.value.toString();	
-				 var listBlock = LayoutControl.blockColorsList.find(:el :el.id == colorBlock.@#identifier);
+				 var listBlock = LayoutController.blockColorsList.find(:el :el.id == colorBlock.@#identifier);
      	    	 listBlock.color = this.value.toString();
 			   }
 				 this.parent.style#background-color = this.value.toString();;	
