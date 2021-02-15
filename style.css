@@ -173,7 +173,7 @@ widget[type=hsv] > input.hue
   color: white;
   border: 1dip solid black;
   border-radius: 20%;
-  prototype: AddColorBtn url(colorSelector.tis);
+  /* prototype: AddColorBtn url(colorSelector.tis); */
 }
 
 #addColorBtn:hover{
@@ -201,4 +201,8 @@ widget[type=hsv] > input.hue
 
 #preview{
   prototype: Preview url(script2.tis);
+}
+
+#popupMenu{
+  prototype: PopupMenu url(colorSelector.tis);
 }

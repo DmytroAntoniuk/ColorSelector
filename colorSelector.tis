@@ -31,19 +31,31 @@ class HSVSelector: Element
   }
 }
 
-class AddColorBtn : Element
-  {
-    function attached(){
-      this.onClick = handleClick;
-    }
-
-    function handleClick(){
-
+class PopupMenu : Element
+{
+  event click $(#addColorBtn){
+    // stdout.$n(____COLOR_ADDED____);
       const needToAddColor = true;
 		  LayoutControl.generateLayout(needToAddColor);
       const previewColor = LayoutControl.blockColorsList[LayoutControl.blockColorsList.length-1].color;
       LayoutControl.fillPreview(previewColor);
       $(#popupMenu).closePopup();
-    }
+    return true; 
   }
+}
 
+// class AddColorBtn : Element
+//   {
+//     function attached(){
+//       this.onClick = handleClick;
+//     }
+
+//     function handleClick(){
+
+//       const needToAddColor = true;
+// 		  LayoutControl.generateLayout(needToAddColor);
+//       const previewColor = LayoutControl.blockColorsList[LayoutControl.blockColorsList.length-1].color;
+//       LayoutControl.fillPreview(previewColor);
+//       $(#popupMenu).closePopup();
+//     }
+//   }

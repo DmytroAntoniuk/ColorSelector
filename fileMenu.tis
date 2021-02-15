@@ -11,7 +11,9 @@ class FileMenu : Element
     }
 
     function saveFile(){     
-        const fileStreamWrite = Stream.openFile("/Users/dantoni/Documents/Projects/ColorSelector/data.csel", "w");
+        const filePath = "/Users/dantoni/Documents/Projects/ColorSelector/data.csel";
+        const fileMode = "w";
+        const fileStreamWrite = Stream.openFile(filePath, fileMode);
         const blockListJSON = JSON.stringify(LayoutControl.blockColorsList);
         fileStreamWrite.print(blockListJSON); 
         fileStreamWrite.close();
@@ -29,7 +31,9 @@ class FileMenu : Element
     }
 
     function parseBlocksProperties(){
-        const fileStreamRead = Stream.openFile("/Users/dantoni/Documents/Projects/ColorSelector/data.csel", "r");
+        const filePath = "/Users/dantoni/Documents/Projects/ColorSelector/data.csel";
+        const fileMode = "r";
+        const fileStreamRead = Stream.openFile(filePath, fileMode);
         const blockData = fileStreamRead.readln();
         fileStreamRead.close();
         var blockProperties = parseData(blockData);

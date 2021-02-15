@@ -10,15 +10,31 @@ class LayoutControl
 
   function generateBlocks()
   {
-    $(body).insert("<div #fileMenu></div>",0);
-    $(#fileMenu).insert("<button #openFileBtn>Open file</button>",0);
-    $(#fileMenu).insert("<br><button #saveFileBtn>Save file</button>",1);
-    $(body).insert("<div #preview></div>",1);
-    $(body).insert("<div #colorsContainer></div>",2);
-    var container = $(#colorsContainer);
-    container.insert("<div #noColorBlock><h2>No color</h2></div>",0);
+    const body = $(body);
+    const bodyHTML = "<div #fileMenu></div>";
+    const bodySequenceNumber = 0;
+    body.insert(bodyHTML, bodySequenceNumber);
+    const fileMenu = $(#fileMenu);
+    const openButtonHTML = "<button #openFileBtn>Open file</button>";
+    const openButtonSequenceNumber = 0;
+    fileMenu.insert(openButtonHTML,openButtonSequenceNumber);
+    const saveButtonHTML = "<br><button #saveFileBtn>Save file</button>";
+    const saveButtonSequenceNumber = 1;
+    fileMenu.insert(saveButtonHTML, saveButtonSequenceNumber);
+    const previewHTML = "<div #preview></div>";
+    const previewSequenceNumber = 1;
+    body.insert(previewHTML,previewSequenceNumber);
+    const colorsContainerHTML = "<div #colorsContainer></div>";
+    const colorsContainerSequenceNumber = 2
+    body.insert(colorsContainerHTML,colorsContainerSequenceNumber);
+    const container = $(#colorsContainer);
+    const noColorBlockHTML =  "<div #noColorBlock><h2>No color</h2></div>";
+    const noColorBlockSequenceNumber = 0;
+    container.insert(noColorBlockHTML,noColorBlockSequenceNumber);
     generateColorBlocks(container);
-    container.insert("<div #addColorBlock><h2>Select color</h2></div>",container.length);
+    const addColorBlockHTML =  "<div #addColorBlock><h2>Select color</h2></div>";
+    const addColorBlockSequenceNumber = container.length;
+    container.insert(addColorBlockHTML,addColorBlockSequenceNumber);
   }
 
   function generateColorBlocks(container)
@@ -26,10 +42,13 @@ class LayoutControl
     var emptyBlock = "<div .colorBlock><div .closeBtn>&times;</div></div>";
     for ( var i = 0; i < blockColorsList.length ; i++) {
         container.insert(emptyBlock ,container.length);
-        container[container.length-1].@#identifier = blockColorsList[i].id;
-        container[container.length-1].@#active = blockColorsList[i].active;
-        container[container.length-1].style#background-color = color(blockColorsList[i].color);      
-        container[container.length-1].insert("<input .colorValueArea value="+blockColorsList[i].color+">",1);      
+        const lastElementIndex = (container.length-1);
+        container[lastElementIndex].@#identifier = blockColorsList[i].id;
+        container[lastElementIndex].@#active = blockColorsList[i].active;
+        container[lastElementIndex].style#background-color = color(blockColorsList[i].color);      
+        const colorValueAreaHTML = "<input .colorValueArea value="+blockColorsList[i].color+">";
+        const colorValueAreaSequenceNumber = 1;
+        container[lastElementIndex].insert(colorValueAreaHTML,colorValueAreaSequenceNumber);      
       }
   }
 

@@ -5,6 +5,10 @@ class Body : Element
 	function attached(){	
 		const needToAddColor = false;
 		LayoutControl.generateLayout(needToAddColor);
+		checkLayoutType();
+	}
+
+	function checkLayoutType(){
 		view.on("size", function() {
 			const addColBlock = $(#addColorBlock);
 			const isSmallEnough = $(#colorsContainer).box(#width) < 650;
@@ -52,10 +56,7 @@ class ColorBlock : Element
 class Preview : Element
 {
 	function attached(){
-		// this.on("colorChanged", $(.) function(evt){
-			// stdout.$n(____COLOR_CHANGED____);
-			// this.style#background-color = evt.data;
-		// });
+		
 	}
 }
 
@@ -66,8 +67,11 @@ class NoColorBlock : Element
 	}
 
 	function handleClick(){
-		LayoutControl.setActiveBlock(this);
-		LayoutControl.fillPreview(color("white"));
+		self.postEvent("noColorSelected", "white");
+		self.on("noColorSelected", function(evt){
+			stdout.$n(____COLOR_CHANGED____{evt.data});
+		    $(#preview).style#background-color = evt.data;
+		});
 	}
 }
 
