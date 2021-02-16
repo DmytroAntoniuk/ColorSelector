@@ -26,7 +26,11 @@ class FileMenu : Element
         parseBlocksProperties();
         LayoutController.generateBlocks();
         var activeBlock = LayoutController.blockColorsList.find(:el :el.active == true)
-        LayoutController.fillPreview(activeBlock.color);
+        var previewColor;
+        if (activeBlock == undefined) previewColor = "white"; 
+        else previewColor = activeBlock.color;
+        self.postEvent("colorChanged", {color : previewColor});
+        // LayoutController.fillPreview(previewColor);
 
     }
 

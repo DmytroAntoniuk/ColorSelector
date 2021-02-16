@@ -46,10 +46,9 @@ class ColorBlock : Element
 	}
 
 	function handleClick(){
-		// const currentColor = LayoutController.getColorByID(this.@#identifier);
-		// stdout.$n(currentColor = {currentColor});
-		// self.postEvent("colorChanged", {color : currentColor});
-		 LayoutController.changePreviewColor(this);
+		const currentBlockID = this.@#identifier;
+		stdout.$n(currentBlockID = {currentBlockID});
+		LayoutController.changePreviewByID(currentBlockID);
 	}
 
 }
@@ -57,10 +56,10 @@ class ColorBlock : Element
 class Preview : Element
 {
 	function attached(){
-		onNoColorBlockClicked();
+		onColorChanged();
 	}
 
-	function onNoColorBlockClicked(){
+	function onColorChanged(){
 		self.on("colorChanged", function(evt){
 			// stdout.$n(____COLOR_CHANGED____{evt.data.color});
 		    $(#preview).style#background-color = evt.data.color;
@@ -83,6 +82,7 @@ class NoColorBlock : Element
 
 	function handleClick(){
 		const currentColor = color("white");
+		LayoutController.disactivateActiveBlock();
 		self.postEvent("colorChanged", {color : currentColor});
 	}
 }
@@ -94,7 +94,8 @@ class ColorValueArea : Element
    			if (event.keyCode == Event.VK_RETURN)
 			   {
 				 const colorBlock = this.parent;
-			     $(#preview).style#background-color = this.value.toString();	
+				 const currentBlockColor = this.value.toString();
+			     self.postEvent("colorChanged", {color : currentBlockColor});	
 				 var listBlock = LayoutController.blockColorsList.find(:el :el.id == colorBlock.@#identifier);
      	    	 listBlock.color = this.value.toString();
 			   }

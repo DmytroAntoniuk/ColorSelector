@@ -34,9 +34,13 @@ class HSVSelector: Element
 class PopupMenu : Element
 {
   event click $(#addColorBtn){
-		  LayoutController.generateLayout();
-      const previewColor = LayoutController.blockColorsList[LayoutController.blockColorsList.length-1].color;
-      LayoutController.fillPreview(previewColor);
+      const colorValue = $(widget#color).value.toString();
+      LayoutController.addNewColor(colorValue);
+      LayoutController.generateBlocks();
+		  // LayoutController.generateLayout();
+      // const previewColor = LayoutController.blockColorsList[LayoutController.blockColorsList.length-1].color;
+      // LayoutController.fillPreview(previewColor);
+      self.postEvent("colorChanged", {color : colorValue});
       $(#popupMenu).closePopup();
     return true; 
   }

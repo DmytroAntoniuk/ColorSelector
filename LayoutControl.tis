@@ -3,39 +3,39 @@ class LayoutController
     var blockColorsList = [];
     var elementCounter = 0;
 
-    function generateLayout(){
-      const colorValue = $(widget#color).value.toString();
-      addNewColor(colorValue);
-      generateBlocks();
-  }
+    // function generateLayout(){
+    //   const colorValue = $(widget#color).value.toString();
+    //   addNewColor(colorValue);
+    //   generateBlocks();
+    // }
 
-  function generateBlocks(){
-    const body = $(body);
-    const bodyHTML = "<div #fileMenu></div>";
-    const bodySequenceNumber = 0;
-    body.insert(bodyHTML, bodySequenceNumber);
-    const fileMenu = $(#fileMenu);
-    const openButtonHTML = "<button #openFileBtn>Open file</button>";
-    const openButtonSequenceNumber = 0;
-    fileMenu.insert(openButtonHTML,openButtonSequenceNumber);
-    const saveButtonHTML = "<br><button #saveFileBtn>Save file</button>";
-    const saveButtonSequenceNumber = 1;
-    fileMenu.insert(saveButtonHTML, saveButtonSequenceNumber);
-    const previewHTML = "<div #preview></div>";
-    const previewSequenceNumber = 1;
-    body.insert(previewHTML,previewSequenceNumber);
-    const colorsContainerHTML = "<div #colorsContainer></div>";
-    const colorsContainerSequenceNumber = 2
-    body.insert(colorsContainerHTML,colorsContainerSequenceNumber);
-    const container = $(#colorsContainer);
-    const noColorBlockHTML =  "<div #noColorBlock><h2>No color</h2></div>";
-    const noColorBlockSequenceNumber = 0;
-    container.insert(noColorBlockHTML,noColorBlockSequenceNumber);
-    generateColorBlocks(container);
-    const addColorBlockHTML =  "<div #addColorBlock><h2>Select color</h2></div>";
-    const addColorBlockSequenceNumber = container.length;
-    container.insert(addColorBlockHTML,addColorBlockSequenceNumber);
-  }
+    function generateBlocks(){
+        const body = $(body);
+        const bodyHTML = "<div #fileMenu></div>";
+        const bodySequenceNumber = 0;
+        body.insert(bodyHTML, bodySequenceNumber);
+        const fileMenu = $(#fileMenu);
+        const openButtonHTML = "<button #openFileBtn>Open file</button>";
+        const openButtonSequenceNumber = 0;
+        fileMenu.insert(openButtonHTML,openButtonSequenceNumber);
+        const saveButtonHTML = "<br><button #saveFileBtn>Save file</button>";
+        const saveButtonSequenceNumber = 1;
+        fileMenu.insert(saveButtonHTML, saveButtonSequenceNumber);
+        const previewHTML = "<div #preview></div>";
+        const previewSequenceNumber = 1;
+        body.insert(previewHTML,previewSequenceNumber);
+        const colorsContainerHTML = "<div #colorsContainer></div>";
+        const colorsContainerSequenceNumber = 2
+        body.insert(colorsContainerHTML,colorsContainerSequenceNumber);
+        const container = $(#colorsContainer);
+        const noColorBlockHTML =  "<div #noColorBlock><h2>No color</h2></div>";
+        const noColorBlockSequenceNumber = 0;
+        container.insert(noColorBlockHTML,noColorBlockSequenceNumber);
+        generateColorBlocks(container);
+        const addColorBlockHTML =  "<div #addColorBlock><h2>Select color</h2></div>";
+        const addColorBlockSequenceNumber = container.length;
+        container.insert(addColorBlockHTML,addColorBlockSequenceNumber);
+    }
 
   function generateColorBlocks(container){
     var emptyBlock = "<div .colorBlock><div .closeBtn>&times;</div></div>";
@@ -96,8 +96,48 @@ class LayoutController
     blockColorsList = [];
   }
 
-  function changePreviewColor(block){
-		var list = LayoutController.blockColorsList;
+    function getBlockByID(id){
+        const colorBlocks = $$(.colorBlock);
+        for (var block in colorBlocks)
+        { 
+            if (block.@#identifier == id){
+                return block;
+            }
+        }
+    }
+
+    function changePreviewByID(id){
+        const wantedBlock = getBlockByID(id);
+        disactivateActiveBlock();
+        stdout.$n(wantedBlock.@#identifier = {wantedBlock.@#identifier}_____wantedBlock.@#active = {wantedBlock.@#active});
+
+        for (var i = 0; i< blockColorsList.length; i++){
+		      if (blockColorsList[i].id == wantedBlock.@#identifier)
+		      {
+			      blockColorsList[i].active = true;
+			      wantedBlock.@#active = true;
+			      break;
+		      }
+		    }
+        self.postEvent("colorChanged", {color : wantedBlock.style#background-color});
+    }
+
+    function changePreviewColor(block){
+		  disactivateActiveBlock();
+		  for (var i = 0; i< blockColorsList.length; i++)
+		  {
+		    if (blockColorsList[i].id == block.@#identifier)
+		    { 
+			    blockColorsList[i].active = true;
+			    block.@#active = true;
+			    break;
+		    } 
+		  }
+		  LayoutController.fillPreview(block.style#background-color);
+    }
+
+  function disactivateActiveBlock(){
+  		var list = LayoutController.blockColorsList;
 		const colorBlocks = $$(.colorBlock);
 		for (var i = 0; i< list.length; i++)
     {
@@ -107,23 +147,15 @@ class LayoutController
 			  colorBlocks[i].@#active = undefined;
 			  break;
 		  } 
-    }
-
-		for (var i = 0; i< list.length; i++)
-		{
-		  if (list[i].id == block.@#identifier)
-		  {
-			  list[i].active = true;
-			  block.@#active = true;
-			  break;
-		  }
-		}
-		LayoutController.fillPreview(block.style#background-color);
+    }    
   }
-  function getColorByID(id){
-        var color = blockColorsList.find(function(currentBlock){
-        if (currentBlock.id == id) return currentBlock.color;
+
+    function getColorByID(id){
+        var wantedBlock = blockColorsList.find(function(currentBlock){
+        // stdout.$n(currentBlock.color = {currentBlock.color}_______currentBlock.id = {currentBlock.id}___________id={id});
+         return (currentBlock.id == id);
         // return undefined;
       });
+      return wantedBlock.color;
   }
 }
