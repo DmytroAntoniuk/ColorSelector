@@ -1,0 +1,106 @@
+include "LayoutControl.tis";
+
+class Body : Element
+{
+	function attached(){	
+		LayoutController.generateBlocks();
+		checkLayoutType();
+	}
+
+	function checkLayoutType(){
+		view.on("size", function() {
+			const addColBlock = $(#addColorBlock);
+			const isSmallEnough = $(#colorsContainer).box(#width) < 650;
+			$(#colorsContainer).@#layout_type  = isSmallEnough ? "grid" : "line";
+		});
+	}	
+}
+
+class AddColorBlock : Element
+{
+	function attached(){
+		this.onClick = handleClick;
+	}
+
+	function handleClick(){
+		 $(#addColorBlock).popup($(#popupMenu), 2);
+	}
+}
+
+class CloseButton : Element
+{
+	function attached(){
+		this.onClick = handleClick;
+	}
+
+	function handleClick(){
+		const colorBlock = this.parent;
+		LayoutController.removeBlock(colorBlock);
+	}
+}
+
+class ColorBlock : Element
+{
+	function attached(){
+		this.onClick = handleClick;
+	}
+
+	function handleClick(){
+		const currentBlockID = this.@#identifier;
+		stdout.$n(currentBlockID = {currentBlockID});
+		LayoutController.changePreviewByID(currentBlockID);
+	}
+
+}
+
+class Preview : Element
+{
+	function attached(){
+		onColorChanged();
+	}
+
+	function onColorChanged(){
+		self.on("colorChanged", function(evt){
+			// stdout.$n(____COLOR_CHANGED____{evt.data.color});
+		    $(#preview).style#background-color = evt.data.color;
+		});		
+	}
+}
+
+class NoColorBlock : Element
+{
+	// event click $(this){
+	// 	self.postEvent("newColorSelected", "white");
+	// 	self.on("newColorSelected", function(evt){
+	// 		stdout.$n(____COLOR_CHANGED____{evt.data});
+	// 	    $(#preview).style#background-color = evt.data;
+	// 	});		
+	// }
+	function attached(){
+		this.onClick = handleClick;
+	}
+
+	function handleClick(){
+		const currentColor = color("white");
+		LayoutController.disactivateActiveBlock();
+		self.postEvent("colorChanged", {color : currentColor});
+	}
+}
+
+class ColorValueArea : Element
+{
+	function attached(){
+		this.on("keyup",function(event) {
+   			if (event.keyCode == Event.VK_RETURN)
+			   {
+				 const colorBlock = this.parent;
+				 const currentBlockColor = this.value.toString();
+			     self.postEvent("colorChanged", {color : currentBlockColor});	
+				 var listBlock = LayoutController.blockColorsList.find(:el :el.id == colorBlock.@#identifier);
+     	    	 listBlock.color = this.value.toString();
+			   }
+				 this.parent.style#background-color = this.value.toString();;	
+			   
+		});
+	}
+}

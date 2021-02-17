@@ -1,0 +1,56 @@
+class FileMenu : Element
+{
+    event click $(button#saveFileBtn) {
+        saveFile();
+        return true; 
+    }
+
+    event click $(button#openFileBtn) {
+        openFile();
+        return true; 
+    }
+
+    function saveFile(){     
+        const filePath = "/Users/dantoni/Documents/Projects/ColorSelector/data.csel";
+        const fileMode = "w";
+        const fileStreamWrite = Stream.openFile(filePath, fileMode);
+        const blockListJSON = JSON.stringify(LayoutController.blockColorsList);
+        fileStreamWrite.print(LayoutController.elementCounter+"\n");
+        fileStreamWrite.print(blockListJSON); 
+        fileStreamWrite.close();
+    }
+
+    function openFile(){
+        LayoutController.clearBlockList();
+        LayoutController.removeLayout();
+        parseBlocksProperties();
+        LayoutController.generateBlocks();
+        var activeBlock = LayoutController.blockColorsList.find(:el :el.active == true)
+        var previewColor;
+        if (activeBlock == undefined) previewColor = "white"; 
+        else previewColor = activeBlock.color;
+        self.postEvent("colorChanged", {color : previewColor});
+        // LayoutController.fillPreview(previewColor);
+
+    }
+
+    function parseBlocksProperties(){
+        const filePath = "/Users/dantoni/Documents/Projects/ColorSelector/data.csel";
+        const fileMode = "r";
+        const fileStreamRead = Stream.openFile(filePath, fileMode);
+        LayoutController.elementCounter = fileStreamRead.readln().toInteger();
+        const blockData = fileStreamRead.readln();
+        stdout.$n(blockData = {blockData});
+        fileStreamRead.close();
+        var blockProperties = parseData(blockData);
+        for ( var block in blockProperties) 
+        {         
+            LayoutController.blockColorsList.push({
+                id: block.id, 
+                color: block.color,
+                active: block.active
+            });
+        }
+    }
+
+}

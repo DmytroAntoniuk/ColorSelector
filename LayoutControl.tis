@@ -1,0 +1,161 @@
+class LayoutController
+{
+    var blockColorsList = [];
+    var elementCounter = 0;
+
+    // function generateLayout(){
+    //   const colorValue = $(widget#color).value.toString();
+    //   addNewColor(colorValue);
+    //   generateBlocks();
+    // }
+
+    function generateBlocks(){
+        const body = $(body);
+        const bodyHTML = "<div #fileMenu></div>";
+        const bodySequenceNumber = 0;
+        body.insert(bodyHTML, bodySequenceNumber);
+        const fileMenu = $(#fileMenu);
+        const openButtonHTML = "<button #openFileBtn>Open file</button>";
+        const openButtonSequenceNumber = 0;
+        fileMenu.insert(openButtonHTML,openButtonSequenceNumber);
+        const saveButtonHTML = "<br><button #saveFileBtn>Save file</button>";
+        const saveButtonSequenceNumber = 1;
+        fileMenu.insert(saveButtonHTML, saveButtonSequenceNumber);
+        const previewHTML = "<div #preview></div>";
+        const previewSequenceNumber = 1;
+        body.insert(previewHTML,previewSequenceNumber);
+        const colorsContainerHTML = "<div #colorsContainer></div>";
+        const colorsContainerSequenceNumber = 2
+        body.insert(colorsContainerHTML,colorsContainerSequenceNumber);
+        const container = $(#colorsContainer);
+        const noColorBlockHTML =  "<div #noColorBlock><h2>No color</h2></div>";
+        const noColorBlockSequenceNumber = 0;
+        container.insert(noColorBlockHTML,noColorBlockSequenceNumber);
+        generateColorBlocks(container);
+        const addColorBlockHTML =  "<div #addColorBlock><h2>Select color</h2></div>";
+        const addColorBlockSequenceNumber = container.length;
+        container.insert(addColorBlockHTML,addColorBlockSequenceNumber);
+    }
+
+  function generateColorBlocks(container){
+    var emptyBlock = "<div .colorBlock><div .closeBtn>&times;</div></div>";
+    for ( var i = 0; i < blockColorsList.length ; i++) {
+        container.insert(emptyBlock ,container.length);
+        const lastElementIndex = (container.length-1);
+        container[lastElementIndex].@#identifier = blockColorsList[i].id;
+        container[lastElementIndex].@#active = blockColorsList[i].active;
+        container[lastElementIndex].style#background-color = color(blockColorsList[i].color);      
+        const colorValueAreaHTML = "<input .colorValueArea value="+blockColorsList[i].color+">";
+        const colorValueAreaSequenceNumber = 1;
+        container[lastElementIndex].insert(colorValueAreaHTML,colorValueAreaSequenceNumber);      
+      }
+  }
+
+  function addNewColor(colorValue) {
+      var isDuplicated = blockColorsList.find(:el: el.color == colorValue); 
+      if (!isDuplicated)
+      {
+        for (var block in blockColorsList)
+        {
+          if (block.active == true) block.active = false;
+        }
+        blockColorsList.push({
+          id: elementCounter, 
+          color: colorValue,
+          active: true 
+        });
+        elementCounter++;  
+        stdout.$n(______{elementCounter}_____);     
+      }
+      removeLayout();
+  }
+
+  function fillPreview(previewColor){
+    const preview = $(#preview);
+    preview.style#background-color = color(previewColor);
+  }
+
+  function removeLayout(){
+    $(#fileMenu).remove();
+    $(#preview).remove();
+    $(#colorsContainer).remove();
+  }
+
+  function removeBlock(colorBlock){
+    colorBlock.@#toDelete = true; 
+		var container = $(#colorsContainer);
+		var i = 0;
+		for (i = 0; i < container.length; i++) {
+			if (container[i].@#toDelete == true) break;
+		}
+		LayoutController.blockColorsList.remove(i-1);
+		colorBlock.remove();
+  }
+
+  function clearBlockList(){
+    blockColorsList = [];
+  }
+
+    function getBlockByID(id){
+        const colorBlocks = $$(.colorBlock);
+        for (var block in colorBlocks)
+        { 
+            if (block.@#identifier == id){
+                return block;
+            }
+        }
+    }
+
+    function changePreviewByID(id){
+        const wantedBlock = getBlockByID(id);
+        disactivateActiveBlock();
+        stdout.$n(wantedBlock.@#identifier = {wantedBlock.@#identifier}_____wantedBlock.@#active = {wantedBlock.@#active});
+
+        for (var i = 0; i< blockColorsList.length; i++){
+		      if (blockColorsList[i].id == wantedBlock.@#identifier)
+		      {
+			      blockColorsList[i].active = true;
+			      wantedBlock.@#active = true;
+			      break;
+		      }
+		    }
+        self.postEvent("colorChanged", {color : wantedBlock.style#background-color});
+    }
+
+    function changePreviewColor(block){
+		  disactivateActiveBlock();
+		  for (var i = 0; i< blockColorsList.length; i++)
+		  {
+		    if (blockColorsList[i].id == block.@#identifier)
+		    { 
+			    blockColorsList[i].active = true;
+			    block.@#active = true;
+			    break;
+		    } 
+		  }
+		  LayoutController.fillPreview(block.style#background-color);
+    }
+
+  function disactivateActiveBlock(){
+  		var list = LayoutController.blockColorsList;
+		const colorBlocks = $$(.colorBlock);
+		for (var i = 0; i< list.length; i++)
+    {
+      if (list[i].active == true)
+		  {
+			  list[i].active = false;
+			  colorBlocks[i].@#active = undefined;
+			  break;
+		  } 
+    }    
+  }
+
+    function getColorByID(id){
+        var wantedBlock = blockColorsList.find(function(currentBlock){
+        // stdout.$n(currentBlock.color = {currentBlock.color}_______currentBlock.id = {currentBlock.id}___________id={id});
+         return (currentBlock.id == id);
+        // return undefined;
+      });
+      return wantedBlock.color;
+  }
+}

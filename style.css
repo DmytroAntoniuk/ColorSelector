@@ -1,0 +1,208 @@
+body {
+     color: black;
+     background: #FFF;
+     font-family: Arial, sans-serif;
+     font-size: 8dip;
+     /*text-align: center;*/
+     padding: 3%;
+     prototype: Body url(script2.tis);
+}
+
+#colorsContainer {
+  width: 100%;
+  height: auto;
+  flow: horizontal-wrap;
+}
+
+.colorBlock {
+     padding: auto;
+     color: red;
+     width: 153dip;
+     /*max-width: 153 dip;*/
+     /*max-height: 80dip;
+     max-width: max-height(142.2%);*/
+     height: width(56.25%);
+     border-radius: 15% 15% 15% 15%;
+     margin: 1%;
+     /* flow: horizontal-wrap; */
+     prototype: ColorBlock url(script2.tis);
+}
+
+.colorBlock:hover {
+  box-shadow: 2px 2px 0 #00ff00 inset, -2px 2px 0 #00ff00 inset, -2px -2px 0 #00ff00 inset, 2px -2px 0 #00ff00 inset;
+
+}
+
+#preview {
+     color: red;
+     background: black;
+     width:  100%;
+     height: width(56.25%);
+     border-radius: 25dip; 
+     max-width: 500dip;
+     margin: auto;
+}
+
+.closeBtn {
+  margin: 5dip;
+  /* border: 5dip solid green; */
+  width: 10%;
+  height: 10%;
+  color: red;
+  font-weight: bold;
+  float: auto;
+  font-size: 25dip;
+  line-height: 10dip;
+  cursor: pointer;
+  margin-left:*;
+  
+  prototype: CloseButton url(script2.tis);
+}
+
+#noColorBlock {
+     text-align: center;
+     background: black;
+     color: white;
+     width: 153dip;
+     /*max-width: 153dip;*/
+     /*max-height: 80dip;*/
+     height: width(56.25%);
+     /*max-width: max-height(142.2%);*/
+     border-radius: 15% 15% 15% 15%;
+     margin: 1%;
+     prototype: NoColorBlock url(script2.tis);
+}
+#noColorBlock:hover{
+  box-shadow: 2px 2px 0 #00ff00 inset, -2px 2px 0 #00ff00 inset, -2px -2px 0 #00ff00 inset, 2px -2px 0 #00ff00 inset;
+}
+
+#addColorBlock {
+     text-align: center;
+     background: black;
+     color: white;
+     width: 153dip;
+     /*max-width: 153dip;*/
+     /*max-height: 80dip;*/
+     height: width(56.25%);                                                                                 
+     /*max-width: max-height(142.2%);*/
+     border-radius: 15% 15% 15% 15%;
+     margin: 1%;
+     prototype: AddColorBlock url(script2.tis);
+}
+
+#addColorBlock:hover{
+  box-shadow: 2px 2px 0 #00ff00 inset, -2px 2px 0 #00ff00 inset, -2px -2px 0 #00ff00 inset, 2px -2px 0 #00ff00 inset;
+}
+
+div[active = true]{
+  /*border: 5dip solid black;*/
+  box-shadow: 2px 2px 0 #000 inset, -2px 2px 0 #000 inset, -2px -2px 0 #000 inset, 2px -2px 0 #000 inset;
+}
+
+div[active = undefined]{
+  border: none;
+}
+
+#colorsContainer[layout_type = "grid"] {
+    flow: grid( 1 2 3 4,
+               5 6 7 8,
+               9 10 11 12);
+}
+
+#colorsContainer[layout_type = "grid"] > div{
+  width: *;
+}
+
+#colorsContainer[layout_type = "line"] {
+    flow: horizontal-wrap;
+}
+
+#colorsContainer[layout_type = "line"] > div{
+  width: 153dip;
+}
+
+
+templates {
+  display: none;
+}
+
+widget[type=hsv] {
+  var(hue): #ff0000;
+  prototype: HSVSelector url(colorSelector.tis);
+  display:block;
+  size:max-content;
+}
+
+widget[type=hsv] > input.hue
+{
+  display:block; 
+  border:none;
+  height: 3dip;
+  width:140dip;
+  background: linear-gradient(to right, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+          }
+
+  widget[type=hsv] > div.layers { 
+    size:155dip;
+    flow:stack;
+  }
+
+  widget[type=hsv] > div.layers > div.value {
+    size:*;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.0) 1%, rgba(0,0,0,1.0) 100%); 
+  }
+          
+  widget[type=hsv] > div.layers > div.saturation {
+    size:*;
+    background: linear-gradient(to right, color(hue) 0%, #ffffff 100%); 
+  }
+
+  widget[type=hsv] > div.layers > div.pointer {
+    border: 2dip solid #fff;
+    size:7dip;
+    transform: translate(-50%,-50%);
+    border-radius:50%;
+  }
+
+#addColorBtn{
+  background-color:red;
+  display: inline-block;
+  padding: 5%;
+  margin: auto;
+  font-size: 14dip;
+  color: white;
+  border: 1dip solid black;
+  border-radius: 20%;
+  /* prototype: AddColorBtn url(colorSelector.tis); */
+}
+
+#addColorBtn:hover{
+  border: 1dip solid white;
+  background-color:green;
+}
+
+.colorValueArea{
+  border: none;
+  background-color: none;
+  font-size: 14dip;
+  width: *;
+  color: white;
+  text-align: center;
+  /* border: 2dip solid yellow; */
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  prototype: ColorValueArea url(script2.tis);
+}
+
+#fileMenu{
+  prototype: FileMenu url(fileMenu.tis);
+}
+
+#preview{
+  prototype: Preview url(script2.tis);
+}
+
+#popupMenu{
+  prototype: PopupMenu url(colorSelector.tis);
+}

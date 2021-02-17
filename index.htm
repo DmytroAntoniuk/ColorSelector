@@ -1,0 +1,30 @@
+<html>
+<head>	
+    <title>Color selector</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<templates>
+	<div #popupMenu>
+	 <widget|hsv #color>
+        <div.layers>
+          <div.saturation/>
+          <div.value/>          
+          <div.pointer/>
+        </div>
+        <input|hslider.hue min=0 max=360 />
+      </widget>
+
+      <div #addColorBtn>
+      	Add
+      </div>
+	</div>
+
+  <div .colorBlock #templateBlock>
+    <span .closeBtn>&times;</span>
+  </div>
+
+</templates>
+</body>
+</html>
