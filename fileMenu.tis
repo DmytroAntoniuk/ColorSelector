@@ -30,7 +30,6 @@ class FileMenu : Element
         if (activeBlock == undefined) previewColor = "white"; 
         else previewColor = activeBlock.color;
         self.postEvent("colorChanged", {color : previewColor});
-        // LayoutController.fillPreview(previewColor);
 
     }
 

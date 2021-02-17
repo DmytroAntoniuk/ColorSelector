@@ -34,8 +34,8 @@ class CloseButton : Element
 	}
 
 	function handleClick(){
-		const colorBlock = this.parent;
-		LayoutController.removeBlock(colorBlock);
+		const colorBlockID = this.parent.@#identifier;
+		LayoutController.removeBlockByID(colorBlockID);
 	}
 }
 
@@ -61,7 +61,6 @@ class Preview : Element
 
 	function onColorChanged(){
 		self.on("colorChanged", function(evt){
-			// stdout.$n(____COLOR_CHANGED____{evt.data.color});
 		    $(#preview).style#background-color = evt.data.color;
 		});		
 	}
@@ -69,13 +68,6 @@ class Preview : Element
 
 class NoColorBlock : Element
 {
-	// event click $(this){
-	// 	self.postEvent("newColorSelected", "white");
-	// 	self.on("newColorSelected", function(evt){
-	// 		stdout.$n(____COLOR_CHANGED____{evt.data});
-	// 	    $(#preview).style#background-color = evt.data;
-	// 	});		
-	// }
 	function attached(){
 		this.onClick = handleClick;
 	}
