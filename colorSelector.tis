@@ -33,31 +33,18 @@ class HSVSelector: Element
 
 class PopupMenu : Element
 {
+  var controller;
+  function attached() {
+     controller = LayoutController.getInstance();
+  }
   event click $(#addColorBtn){
       const colorValue = $(widget#color).value.toString();
-      LayoutController.addNewColor(colorValue);
-      LayoutController.generateBlocks();
-		  // LayoutController.generateLayout();
-      // const previewColor = LayoutController.blockColorsList[LayoutController.blockColorsList.length-1].color;
-      // LayoutController.fillPreview(previewColor);
+      controller.addNewColor(colorValue);
+      // stdout.$n(NEW COLOR ADDED);
+            controller.showBlocksArray();
+      controller.generateBlocks();
       self.postEvent("colorChanged", {color : colorValue});
       $(#popupMenu).closePopup();
     return true; 
   }
 }
-
-// class AddColorBtn : Element
-//   {
-//     function attached(){
-//       this.onClick = handleClick;
-//     }
-
-//     function handleClick(){
-
-//       const needToAddColor = true;
-// 		  LayoutControl.generateLayout(needToAddColor);
-//       const previewColor = LayoutControl.blockColorsList[LayoutControl.blockColorsList.length-1].color;
-//       LayoutControl.fillPreview(previewColor);
-//       $(#popupMenu).closePopup();
-//     }
-//   }

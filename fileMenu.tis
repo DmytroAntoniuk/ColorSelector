@@ -1,3 +1,5 @@
+include "LayoutControl.tis";
+
 class FileMenu : Element
 {
     event click $(button#saveFileBtn) {
@@ -14,38 +16,42 @@ class FileMenu : Element
         const filePath = "/Users/dantoni/Documents/Projects/ColorSelector/data.csel";
         const fileMode = "w";
         const fileStreamWrite = Stream.openFile(filePath, fileMode);
-        const blockListJSON = JSON.stringify(LayoutController.blockColorsList);
-        fileStreamWrite.print(LayoutController.elementCounter+"\n");
+        const controller = LayoutController.getInstance();
+        controller.showBlocksArray();
+        stdout.$n(controller = {controller.p_blockColorsList});
+        const blockListJSON = JSON.stringify(controller.p_blockColorsList);
+        fileStreamWrite.print(controller.p_elementCounter+"\n");
         fileStreamWrite.print(blockListJSON); 
         fileStreamWrite.close();
     }
 
     function openFile(){
-        LayoutController.clearBlockList();
-        LayoutController.removeLayout();
+        const controller = LayoutController.getInstance();
+        controller.clearBlockList();
+        controller.removeLayout();
         parseBlocksProperties();
-        LayoutController.generateBlocks();
-        var activeBlock = LayoutController.blockColorsList.find(:el :el.active == true)
+        controller.generateBlocks();
+        var activeBlock = controller.p_blockColorsList.find(:el :el.active == true)
         var previewColor;
         if (activeBlock == undefined) previewColor = "white"; 
         else previewColor = activeBlock.color;
         self.postEvent("colorChanged", {color : previewColor});
-        // LayoutController.fillPreview(previewColor);
 
     }
 
     function parseBlocksProperties(){
+        const controller = LayoutController.getInstance();
         const filePath = "/Users/dantoni/Documents/Projects/ColorSelector/data.csel";
         const fileMode = "r";
         const fileStreamRead = Stream.openFile(filePath, fileMode);
-        LayoutController.elementCounter = fileStreamRead.readln().toInteger();
+        controller.p_elementCounter = fileStreamRead.readln().toInteger();
         const blockData = fileStreamRead.readln();
         stdout.$n(blockData = {blockData});
         fileStreamRead.close();
         var blockProperties = parseData(blockData);
         for ( var block in blockProperties) 
         {         
-            LayoutController.blockColorsList.push({
+            controller.p_blockColorsList.push({
                 id: block.id, 
                 color: block.color,
                 active: block.active
